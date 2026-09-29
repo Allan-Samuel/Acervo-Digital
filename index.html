@@ -1,0 +1,198 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processos Históricos | Memorial TJDFT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <img src="img/logo_memorial.jpg" alt="Memorial TJDFT - Desembargadora Lila Pimenta Duarte" class="memorial-logo">
+    </header>
+
+    <main class="landing-page">
+        <section class="hero">
+            <p class="eyebrow">MEMORIAL TJDFT</p>
+            <h1>PROCESSOS HISTÓRICOS</h1>
+            <div class="gold-line"></div>
+            <p class="hero-subtitle">
+                Acervo histórico para consulta e preservação da memória institucional.
+            </p>
+        </section>
+
+        <section class="process-section">
+            <div class="section-heading">
+                <div>
+                    <p class="section-kicker">ACERVO DIGITAL</p>
+                    <h2>Processos disponíveis</h2>
+                </div>
+
+                <label class="search-box">
+                    <span aria-hidden="true">⌕</span>
+                    <input id="processSearch" type="search" placeholder="Pesquisar processo..." autocomplete="off">
+                </label>
+            </div>
+
+            <div id="processGrid" class="process-grid">
+                <article class="process-card"
+                    data-process-name="Inventário Hugo Auler"
+                    data-process-id="hugo-auler">
+                    <button class="process-card-button" type="button">
+                        <div class="process-thumbnail-wrap">
+                            <img src="img/logo_inventario_hugo_auler.jpg"
+                                 alt="Inventário Hugo Auler"
+                                 class="process-thumbnail">
+                            <div class="open-overlay">ABRIR PROCESSO</div>
+                        </div>
+
+                        <div class="process-card-info">
+                            <p class="process-type">INVENTÁRIO</p>
+                            <h3>Hugo Auler</h3>
+                            <p>Processo nº 31971/1980</p>
+                        </div>
+                    </button>
+                </article>
+
+                <article class="process-card"
+                    data-process-name="Caso Ana Lídia"
+                    data-process-id="ana-lidia">
+                    <button class="process-card-button" type="button">
+                        <div class="process-thumbnail-wrap">
+                            <img src="img/logo_caso_ana_lidia.jpg"
+                                 alt="Caso Ana Lídia"
+                                 class="process-thumbnail">
+                            <div class="open-overlay">ABRIR PROCESSO</div>
+                        </div>
+
+                        <div class="process-card-info">
+                            <p class="process-type">CASO</p>
+                            <h3>Ana Lídia</h3>
+                            <p>Processo nº A0001948/1985 (00000549/74)</p>
+                        </div>
+                    </button>
+                </article>
+
+                <article class="process-card"
+                    data-process-name="Oscar Niemeyer"
+                    data-process-id="oscar-niemeyer">
+                    <button class="process-card-button" type="button">
+                        <div class="process-thumbnail-wrap">
+                            <img src="img/logo_oscar_niemeyer.jpg"
+                                 alt="Oscar Niemeyer"
+                                 class="process-thumbnail">
+                            <div class="open-overlay">ABRIR PROCESSO</div>
+                        </div>
+
+                        <div class="process-card-info">
+                            <p class="process-type">CASO</p>
+                            <h3>Oscar Niemeyer</h3>
+                            <p>Processo nº 24371/1965</p>
+                        </div>
+                    </button>
+                </article>
+            </div>
+
+            <div id="noResults" class="no-results" hidden>
+                Nenhum processo encontrado.
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal do PDF de apresentação -->
+    <div id="previewModal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop" data-close="preview"></div>
+
+        <section class="preview-modal-panel" role="dialog" aria-modal="true"
+                 aria-labelledby="previewTitle">
+            <div class="modal-header">
+                <div>
+                    <p class="modal-kicker">PROCESSOS HISTÓRICOS</p>
+                    <h2 id="previewTitle">Inventário Hugo Auler</h2>
+                </div>
+                <button class="icon-button" id="closePreview" type="button" aria-label="Fechar">×</button>
+            </div>
+
+            <div class="preview-content">
+                <div class="preview-pdf-wrap">
+                    <div class="preview-toolbar">
+                        <button id="previewZoomOut" class="preview-zoom-btn" type="button" aria-label="Diminuir zoom">−</button>
+                        <span id="previewZoomValue" class="preview-zoom-value">100%</span>
+                        <button id="previewZoomIn" class="preview-zoom-btn" type="button" aria-label="Aumentar zoom">+</button>
+                        <button id="previewZoomReset" class="preview-zoom-btn preview-zoom-reset" type="button" aria-label="Ajustar à largura">Ajustar</button>
+                    </div>
+                    <div id="previewViewport" class="preview-viewport">
+                        <div id="previewPages" class="preview-pages"></div>
+                    </div>
+                </div>
+
+                <aside class="complete-process-card">
+                    <div class="mini-page">
+                        <canvas id="previewPageCanvas"></canvas>
+                        <span class="mini-page-label">1ª PÁGINA</span>
+                    </div>
+
+                    <p class="complete-kicker">LEITURA DO PROCESSO</p>
+                    <h3>Processo completo</h3>
+                    <p>
+                        Consulte o documento integral em uma interface de leitura
+                        no formato de livro.
+                    </p>
+
+                    <button id="openBook" class="primary-button" type="button">
+                        Clique aqui para visualizar o processo completo
+                    </button>
+                </aside>
+            </div>
+        </section>
+    </div>
+
+    <!-- Leitor em formato de livro -->
+    <div id="readerModal" class="reader-modal" aria-hidden="true">
+        <div class="reader-backdrop"></div>
+
+        <header class="reader-topbar">
+            <div class="reader-title">
+                <span class="reader-kicker">PROCESSOS HISTÓRICOS</span>
+                <strong id="readerTitle">Inventário Hugo Auler</strong>
+            </div>
+
+            <div class="reader-actions">
+                <button id="zoomOut" class="reader-control" type="button" aria-label="Diminuir zoom">−</button>
+                <span id="zoomValue" class="zoom-value">100%</span>
+                <button id="zoomIn" class="reader-control" type="button" aria-label="Aumentar zoom">+</button>
+                <button id="fullscreenReader" class="reader-control fullscreen-button" type="button"
+                        aria-label="Tela cheia">⛶</button>
+                <button id="closeReader" class="reader-control close-reader" type="button"
+                        aria-label="Fechar leitor">×</button>
+            </div>
+        </header>
+
+        <main class="reader-main">
+            <div id="bookStage" class="book-stage">
+                <div id="bookLoading" class="book-loading">
+                    <div class="spinner"></div>
+                    <p>Preparando o processo...</p>
+                </div>
+
+                <div id="book" class="book"></div>
+            </div>
+
+            <button id="previousPage" class="page-arrow page-arrow-left" type="button"
+                    aria-label="Página anterior">‹</button>
+            <button id="nextPage" class="page-arrow page-arrow-right" type="button"
+                    aria-label="Próxima página">›</button>
+        </main>
+
+        <footer class="reader-bottombar">
+            <span id="pageCounter">1–2 / 7</span>
+            <span class="touch-hint">Deslize ou arraste a página para virar</span>
+        </footer>
+    </div>
+
+    <!-- Bibliotecas usadas somente para renderizar o PDF e fazer o efeito de livro. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
