@@ -73,7 +73,7 @@ function openPreview(processId) {
     previewViewport.scrollLeft = 0;
 
     renderPreviewPages(proc.preview);
-    renderPreviewThumbnail(proc.preview);
+    renderPreviewThumbnail(proc.pdf);
 }
 
 /*
@@ -226,7 +226,12 @@ async function renderPreviewThumbnail(previewUrl) {
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 
     try {
-        const pdf = await pdfjsLib.getDocument(previewUrl).promise;
+        // Miniatura = 1ª página do processo completo. disableAutoFetch evita
+        // baixar o PDF inteiro só para desenhar a primeira página.
+        const pdf = await pdfjsLib.getDocument({
+            url: previewUrl,
+            disableAutoFetch: true
+        }).promise;
         const page = await pdf.getPage(1);
 
         const context = canvas.getContext('2d');
@@ -243,6 +248,8 @@ async function renderPreviewThumbnail(previewUrl) {
             canvasContext: context,
             viewport: scaledViewport
         }).promise;
+
+        pdf.destroy();
     } catch (error) {
         console.error('Não foi possível renderizar a miniatura:', error);
     }
