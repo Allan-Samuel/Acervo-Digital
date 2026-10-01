@@ -256,6 +256,9 @@ async function renderPreviewThumbnail(previewUrl) {
 }
 
 async function openBook() {
+    // Dentro do clique do usuário: entra em tela cheia automaticamente
+    enterFullscreen();
+
     closePreview();
 
     readerModal.classList.add('is-open');
@@ -264,6 +267,11 @@ async function openBook() {
 
     const proc = PROCESSES[state.currentId];
     readerTitle.textContent = proc.title;
+
+    // Cada abertura começa sem zoom
+    state.panX = 0;
+    state.panY = 0;
+    setZoom(1);
 
     // Mesmo processo já carregado: apenas reabre o leitor
     if (state.pageFlip && state.loadedId === state.currentId) {
@@ -364,7 +372,7 @@ async function renderPdfPage(pageNumber, canvas, pdf) {
      * Largura fixa de renderização (em pixels): nítida o bastante para
      * o zoom, sem consumir memória demais por página.
      */
-    const targetWidth = 1400;
+    const targetWidth = 1800;
     const baseViewport = page.getViewport({ scale: 1 });
     const viewport = page.getViewport({
         scale: targetWidth / baseViewport.width
@@ -440,9 +448,9 @@ function createPageFlip() {
         height: 934,
         size: 'stretch',
         minWidth: 260,
-        maxWidth: 610,
+        maxWidth: 2400,
         minHeight: 400,
-        maxHeight: 940,
+        maxHeight: 3600,
         showCover: false,
         maxShadowOpacity: 0.35,
         mobileScrollSupport: false,
@@ -500,16 +508,26 @@ function goNext() {
 }
 
 /*
- * Som de virar página (arquivo som/virar_pagina.mp3).
- * Usamos uma cópia do áudio a cada virada para que viradas rápidas
+ * Sons de virar página: alternam em sequência a cada virada.
+ * Usamos uma cópia do áudio a cada toque para que viradas rápidas
  * não cortem o som anterior.
  */
-const pageSound = new Audio('som/virar_pagina.mp3');
-pageSound.preload = 'auto';
+const PAGE_SOUNDS = [
+    'som/virar_pagina.mp3',
+    'som/virar_pagina_dois.mp3'
+].map(src => {
+    const audio = new Audio(src);
+    audio.preload = 'auto';
+    return audio;
+});
+
+let pageSoundIndex = 0;
 
 function playPageSound() {
     try {
-        const sound = pageSound.cloneNode();
+        const sound = PAGE_SOUNDS[pageSoundIndex].cloneNode();
+        pageSoundIndex = (pageSoundIndex + 1) % PAGE_SOUNDS.length;
+
         sound.volume = 0.8;
         sound.play().catch(error => {
             console.warn('Som de página indisponível:', error);
@@ -519,40 +537,61 @@ function playPageSound() {
     }
 }
 
+const PAGE_W = 601;
+const PAGE_H = 934;
+const MIN_ZOOM = .75;
+const MAX_ZOOM = 3;
+
 /*
- * Impede que o livro saia do enquadramento: quando ele é menor que a
- * área de leitura não há deslocamento (fica centralizado); quando está
- * ampliado, só permite mover até as bordas do livro.
+ * Impede que o livro saia do enquadramento: quando ele cabe na área de
+ * leitura não há deslocamento (fica centralizado); quando está ampliado,
+ * só permite mover até as bordas das páginas.
  */
 function clampPan() {
     const stageWidth = bookStage.clientWidth;
     const stageHeight = bookStage.clientHeight;
 
-    const maxPanX = Math.max(0, (book.offsetWidth * state.zoom - stageWidth) / 2);
-    const maxPanY = Math.max(0, (book.offsetHeight * state.zoom - stageHeight) / 2);
+    // Tamanho real da dupla de páginas dentro do contêiner
+    const ratio = (2 * PAGE_W) / PAGE_H;
+    const contentHeight = Math.min(book.offsetHeight, book.offsetWidth / ratio);
+    const contentWidth = contentHeight * ratio;
+
+    const maxPanX = Math.max(0, (contentWidth * state.zoom - stageWidth) / 2);
+    const maxPanY = Math.max(0, (contentHeight * state.zoom - stageHeight) / 2);
 
     state.panX = Math.max(-maxPanX, Math.min(maxPanX, state.panX));
     state.panY = Math.max(-maxPanY, Math.min(maxPanY, state.panY));
 }
 
-function setZoom(value, mouseX = null, mouseY = null) {
+function applyTransform() {
+    clampPan();
+
+    book.style.transform =
+        `translate(${state.panX}px, ${state.panY}px) scale(${state.zoom})`;
+
+    zoomValue.textContent = `${Math.round(state.zoom * 100)}%`;
+
+    // Ampliado: arrastar move a página (não vira). Virar: setas/teclado.
+    const zoomed = state.zoom > 1.02;
+    book.style.pointerEvents = zoomed ? 'none' : '';
+    bookStage.classList.toggle('is-zoomed', zoomed);
+}
+
+function setZoom(value, pointX = null, pointY = null) {
     const oldZoom = state.zoom;
 
-    const newZoom = Math.max(.75, Math.min(2.5, value));
+    const newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, value));
     const factor = newZoom / oldZoom;
 
-    if (mouseX !== null && mouseY !== null) {
-        // Zoom apontado: mantém o ponto sob o cursor no mesmo lugar
+    if (pointX !== null && pointY !== null) {
+        // Zoom apontado: mantém o ponto sob o cursor/dedos no mesmo lugar
         const rect = bookStage.getBoundingClientRect();
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
+        const relX = pointX - rect.left - rect.width / 2;
+        const relY = pointY - rect.top - rect.height / 2;
 
-        const pointX = mouseX - rect.left - centerX;
-        const pointY = mouseY - rect.top - centerY;
-
-        state.panX = pointX - (pointX - state.panX) * factor;
-        state.panY = pointY - (pointY - state.panY) * factor;
+        state.panX = relX - (relX - state.panX) * factor;
+        state.panY = relY - (relY - state.panY) * factor;
     } else {
         // Botões/teclado: amplia/reduz em torno do centro da tela
         state.panX *= factor;
@@ -560,15 +599,7 @@ function setZoom(value, mouseX = null, mouseY = null) {
     }
 
     state.zoom = newZoom;
-
-    // Ao reduzir, o livro volta gradualmente para o centro
-    clampPan();
-
-    book.style.transform =
-        `translate(${state.panX}px, ${state.panY}px) scale(${state.zoom})`;
-
-    zoomValue.textContent =
-        `${Math.round(state.zoom * 100)}%`;
+    applyTransform();
 }
 
 function changeZoom(amount, mouseX = null, mouseY = null) {
@@ -579,10 +610,22 @@ function changeZoom(amount, mouseX = null, mouseY = null) {
     );
 }
 
+/* Tela cheia da página inteira (equivale ao F11) */
+async function enterFullscreen() {
+    try {
+        const root = document.documentElement;
+        if (!document.fullscreenElement && root.requestFullscreen) {
+            await root.requestFullscreen();
+        }
+    } catch (error) {
+        console.warn('Tela cheia não disponível:', error);
+    }
+}
+
 async function toggleFullscreen() {
     try {
         if (!document.fullscreenElement) {
-            await readerModal.requestFullscreen();
+            await document.documentElement.requestFullscreen();
         } else {
             await document.exitFullscreen();
         }
@@ -595,10 +638,6 @@ function closeReader() {
     readerModal.classList.remove('is-open');
     readerModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-
-    if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-    }
 }
 
 function setupSearch() {
@@ -652,8 +691,12 @@ function setupEvents() {
     document.getElementById('zoomIn')
         .addEventListener('click', () => changeZoom(.15));
 
-    document.getElementById('fullscreenReader')
-        .addEventListener('click', toggleFullscreen);
+    const fullscreenButton = document.getElementById('pageFullscreen');
+    if (document.documentElement.requestFullscreen) {
+        fullscreenButton.addEventListener('click', toggleFullscreen);
+    } else {
+        fullscreenButton.hidden = true;
+    }
 
     processSearch.addEventListener('keydown', event => {
         if (event.key === 'Escape') {
@@ -691,6 +734,162 @@ function setupEvents() {
 }, { passive: false });
 }
 
+/*
+ * Gestos no leitor.
+ * Toque: dois dedos = zoom (pinça); um dedo com zoom = mover a página;
+ * um dedo sem zoom = deslizar para virar a página.
+ * Mouse: arrastar com zoom = mover a página (sem zoom o PageFlip vira
+ * a página arrastando, como antes).
+ */
+function setupReaderGestures() {
+    const touch = {
+        mode: null, startX: 0, startY: 0, panX: 0, panY: 0,
+        dist: 0, zoom: 1, midX: 0, midY: 0, wasPinch: false
+    };
+
+    const distance = t => Math.hypot(
+        t[0].clientX - t[1].clientX,
+        t[0].clientY - t[1].clientY
+    );
+    const midpoint = t => ({
+        x: (t[0].clientX + t[1].clientX) / 2,
+        y: (t[0].clientY + t[1].clientY) / 2
+    });
+
+    function startSingle(t) {
+        touch.mode = 'single';
+        touch.startX = t.clientX;
+        touch.startY = t.clientY;
+        touch.panX = state.panX;
+        touch.panY = state.panY;
+    }
+
+    function onTouchStart(event) {
+        if (!readerModal.classList.contains('is-open')) return;
+
+        // Impede o PageFlip e o navegador de tratarem este toque
+        event.preventDefault();
+        event.stopPropagation();
+
+        bookStage.classList.add('is-gesturing');
+
+        const t = event.touches;
+
+        if (t.length >= 2) {
+            const mid = midpoint(t);
+            touch.mode = 'pinch';
+            touch.wasPinch = true;
+            touch.dist = distance(t);
+            touch.zoom = state.zoom;
+            touch.midX = mid.x;
+            touch.midY = mid.y;
+        } else {
+            touch.wasPinch = false;
+            startSingle(t[0]);
+        }
+    }
+
+    function onTouchMove(event) {
+        if (!touch.mode) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const t = event.touches;
+
+        if (touch.mode === 'pinch' && t.length >= 2) {
+            const mid = midpoint(t);
+
+            setZoom(touch.zoom * (distance(t) / touch.dist), mid.x, mid.y);
+
+            // Acompanha o movimento dos dedos durante a pinça
+            state.panX += mid.x - touch.midX;
+            state.panY += mid.y - touch.midY;
+            touch.midX = mid.x;
+            touch.midY = mid.y;
+            applyTransform();
+        } else if (touch.mode === 'single' && t.length === 1 && state.zoom > 1.02) {
+            state.panX = touch.panX + (t[0].clientX - touch.startX);
+            state.panY = touch.panY + (t[0].clientY - touch.startY);
+            applyTransform();
+        }
+    }
+
+    function onTouchEnd(event) {
+        if (!touch.mode) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const remaining = event.touches;
+
+        // Deslizar para os lados (sem zoom) vira a página
+        if (touch.mode === 'single' && !touch.wasPinch &&
+            state.zoom <= 1.02 && event.changedTouches.length) {
+            const dx = event.changedTouches[0].clientX - touch.startX;
+            const dy = event.changedTouches[0].clientY - touch.startY;
+
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+                if (dx < 0) goNext(); else goPrevious();
+            }
+        }
+
+        if (remaining.length === 0) {
+            touch.mode = null;
+            bookStage.classList.remove('is-gesturing');
+
+            // Perto de 100%: volta exatamente a 100%, centralizado
+            if (Math.abs(state.zoom - 1) < .05) {
+                setZoom(1);
+            }
+        } else if (remaining.length === 1) {
+            // Soltou um dos dedos da pinça: continua movendo com o outro
+            startSingle(remaining[0]);
+        }
+    }
+
+    const options = { passive: false, capture: true };
+    bookStage.addEventListener('touchstart', onTouchStart, options);
+    bookStage.addEventListener('touchmove', onTouchMove, options);
+    bookStage.addEventListener('touchend', onTouchEnd, options);
+    bookStage.addEventListener('touchcancel', onTouchEnd, options);
+
+    // Mouse: arrastar para mover a página ampliada
+    let mousePan = null;
+
+    bookStage.addEventListener('pointerdown', event => {
+        if (event.pointerType !== 'mouse' || event.button !== 0) return;
+        if (state.zoom <= 1.02) return;
+
+        mousePan = {
+            x: event.clientX,
+            y: event.clientY,
+            panX: state.panX,
+            panY: state.panY
+        };
+
+        bookStage.setPointerCapture(event.pointerId);
+        bookStage.classList.add('is-gesturing');
+    });
+
+    bookStage.addEventListener('pointermove', event => {
+        if (!mousePan) return;
+
+        state.panX = mousePan.panX + (event.clientX - mousePan.x);
+        state.panY = mousePan.panY + (event.clientY - mousePan.y);
+        applyTransform();
+    });
+
+    const endMousePan = () => {
+        mousePan = null;
+        bookStage.classList.remove('is-gesturing');
+    };
+
+    bookStage.addEventListener('pointerup', endMousePan);
+    bookStage.addEventListener('pointercancel', endMousePan);
+}
+
 setupSearch();
 setupEvents();
 setupPreviewZoom();
+setupReaderGestures();
