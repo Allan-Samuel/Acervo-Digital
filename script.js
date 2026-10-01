@@ -514,7 +514,7 @@ function goNext() {
  */
 const PAGE_SOUNDS = [
     'som/virar_pagina.mp3',
-    'som/virar_pagina-dois.mp3'
+    'som/virar_pagina_dois.mp3'
 ].map(src => {
     const audio = new Audio(src);
     audio.preload = 'auto';
