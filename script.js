@@ -19,7 +19,7 @@ const PROCESSES = {
         preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_ana_lidia.pdf'
     },
     'oscar-niemeyer': {
-        title: 'Oscar Niemeyer',
+        title: 'Caso Oscar Niemeyer',
         pdf: 'processos/Processo_Oscar_Niemeyer.pdf',
         preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_oscar_niemeyer.pdf'
     }
