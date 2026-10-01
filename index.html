@@ -158,7 +158,7 @@
             <button id="prevProcess" class="reader-control process-nav" type="button"
                     aria-label="Processo anterior" title="Processo anterior">
                 <span class="process-nav-arrow">←</span>
-                <span class="process-nav-label">Processo anterior</span>
+                <span id="prevProcessLabel" class="process-nav-label">Processo anterior</span>
             </button>
 
             <div class="reader-title">
@@ -170,13 +170,15 @@
                 <button id="zoomOut" class="reader-control" type="button" aria-label="Diminuir zoom">−</button>
                 <span id="zoomValue" class="zoom-value">100%</span>
                 <button id="zoomIn" class="reader-control" type="button" aria-label="Aumentar zoom">+</button>
+                <button id="goHome" class="reader-control" type="button"
+                        aria-label="Voltar à página inicial" title="Página inicial">⌂</button>
                 <button id="closeReader" class="reader-control close-reader" type="button"
                         aria-label="Fechar leitor">×</button>
             </div>
 
             <button id="nextProcess" class="reader-control process-nav" type="button"
                     aria-label="Próximo processo" title="Próximo processo">
-                <span class="process-nav-label">Próximo processo</span>
+                <span id="nextProcessLabel" class="process-nav-label">Próximo processo</span>
                 <span class="process-nav-arrow">→</span>
             </button>
         </header>

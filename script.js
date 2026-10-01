@@ -267,6 +267,7 @@ async function openBook() {
 
     const proc = PROCESSES[state.currentId];
     readerTitle.textContent = proc.title;
+    updateProcessNav();
 
     // Cada abertura começa sem zoom
     state.panX = 0;
@@ -640,6 +641,21 @@ function hideReader() {
     document.body.style.overflow = '';
 }
 
+/* Mostra o nome do processo anterior/próximo nos botões do topo */
+function updateProcessNav() {
+    const ids = Object.keys(PROCESSES);
+    const index = ids.indexOf(state.currentId);
+    const prev = PROCESSES[ids[(index - 1 + ids.length) % ids.length]].title;
+    const next = PROCESSES[ids[(index + 1) % ids.length]].title;
+
+    document.getElementById('prevProcessLabel').textContent = prev;
+    document.getElementById('nextProcessLabel').textContent = next;
+    document.getElementById('prevProcess').title = prev;
+    document.getElementById('prevProcess').setAttribute('aria-label', prev);
+    document.getElementById('nextProcess').title = next;
+    document.getElementById('nextProcess').setAttribute('aria-label', next);
+}
+
 /* X: fecha o leitor e volta para a prévia do mesmo processo */
 function closeReader() {
     hideReader();
@@ -694,6 +710,9 @@ function setupEvents() {
 
     document.getElementById('closeReader')
         .addEventListener('click', closeReader);
+
+    document.getElementById('goHome')
+        .addEventListener('click', hideReader);
 
     document.getElementById('prevProcess')
         .addEventListener('click', () => goToProcess(-1));
