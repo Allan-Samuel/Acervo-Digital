@@ -825,3 +825,53 @@ button {
         height: 52px;
     }
 }
+
+
+/* SETAS DE PROCESSO (extremidades superiores do leitor) */
+
+.reader-topbar {
+    gap: 14px;
+}
+
+.reader-title {
+    flex: 1;
+    min-width: 0;
+}
+
+.process-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: auto;
+    padding: 0 14px;
+    color: #fff;
+    background: rgba(85,0,28,.82);
+    border-color: rgba(223,192,112,.5);
+    white-space: nowrap;
+}
+
+.process-nav:hover {
+    background: var(--wine);
+}
+
+.process-nav-arrow {
+    font-size: 26px;
+    line-height: 1;
+}
+
+.process-nav-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+    .process-nav-label {
+        display: none;
+    }
+
+    .process-nav {
+        padding: 0 12px;
+    }
+}

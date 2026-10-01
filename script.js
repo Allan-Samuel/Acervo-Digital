@@ -514,7 +514,7 @@ function goNext() {
  */
 const PAGE_SOUNDS = [
     'som/virar_pagina.mp3',
-    'som/virar_pagina_dois.mp3'
+    'som/virar_pagina-dois.mp3'
 ].map(src => {
     const audio = new Audio(src);
     audio.preload = 'auto';
@@ -634,10 +634,26 @@ async function toggleFullscreen() {
     }
 }
 
-function closeReader() {
+function hideReader() {
     readerModal.classList.remove('is-open');
     readerModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+}
+
+/* X: fecha o leitor e volta para a prévia do mesmo processo */
+function closeReader() {
+    hideReader();
+    openPreview(state.currentId);
+}
+
+/* Setas do topo: abre a prévia do processo anterior (-1) ou seguinte (+1) */
+function goToProcess(step) {
+    const ids = Object.keys(PROCESSES);
+    const index = ids.indexOf(state.currentId);
+    const target = ids[(index + step + ids.length) % ids.length];
+
+    hideReader();
+    openPreview(target);
 }
 
 function setupSearch() {
@@ -678,6 +694,12 @@ function setupEvents() {
 
     document.getElementById('closeReader')
         .addEventListener('click', closeReader);
+
+    document.getElementById('prevProcess')
+        .addEventListener('click', () => goToProcess(-1));
+
+    document.getElementById('nextProcess')
+        .addEventListener('click', () => goToProcess(1));
 
     document.getElementById('previousPage')
         .addEventListener('click', goPrevious);
