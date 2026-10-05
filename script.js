@@ -29,12 +29,12 @@ const PROCESSES = {
         preview: 'previa_processos/PROCESSOS_HISTORICOS_dois_candangos.pdf'
     },
     'caixa-dagua': {
-        title: "Caso Caixa d'Água",
+        title: "Demolição da Caixa d'Água de Taguatinga",
         pdf: 'processos/Processo_Caixa_Dagua.pdf',
         preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_caixa_dagua.pdf'
     },
     'crime-passional': {
-        title: 'Crime Passional em 1959',
+        title: 'Hipótese de Crime Passional',
         pdf: 'processos/Processo_Crime_Passional.pdf',
         preview: 'previa_processos/PROCESSOS_HISTORICOS_crime_passional_em_1959.pdf'
     }
