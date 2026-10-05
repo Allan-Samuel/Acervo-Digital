@@ -22,6 +22,21 @@ const PROCESSES = {
         title: 'Caso Oscar Niemeyer',
         pdf: 'processos/Processo_Oscar_Niemeyer.pdf',
         preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_oscar_niemeyer.pdf'
+    },
+    'dois-candangos': {
+        title: 'Dois Candangos',
+        pdf: 'processos/Processo_Dois_Candangos.pdf',
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_dois_candangos.pdf'
+    },
+    'caixa-dagua': {
+        title: "Caso Caixa d'Água",
+        pdf: 'processos/Processo_Caixa_Dagua.pdf',
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_caixa_dagua.pdf'
+    },
+    'crime-passional': {
+        title: 'Crime Passional em 1959',
+        pdf: 'processos/Processo_Crime_Passional.pdf',
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_crime_passional_em_1959.pdf'
     }
 };
 
