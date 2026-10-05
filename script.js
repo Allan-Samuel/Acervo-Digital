@@ -34,7 +34,7 @@ const PROCESSES = {
         preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_caixa_dagua.pdf'
     },
     'crime-passional': {
-        title: 'Hipótese de Crime Passional',
+        title: 'Caso Hipótese de Crime Passional',
         pdf: 'processos/Processo_Crime_Passional.pdf',
         preview: 'previa_processos/PROCESSOS_HISTORICOS_crime_passional_em_1959.pdf'
     }
