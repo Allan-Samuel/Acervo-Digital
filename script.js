@@ -671,12 +671,27 @@ function hideReader() {
     document.body.style.overflow = '';
 }
 
+/* Processos na ordem e com os filtros/pesquisa aplicados na landing page */
+function getNavIds() {
+    const ids = [...document.querySelectorAll('.process-card')]
+        .filter(card => card.style.display !== 'none')
+        .map(card => card.dataset.processId)
+        .filter(id => PROCESSES[id]);
+
+    return ids.includes(state.currentId) ? ids : Object.keys(PROCESSES);
+}
+
 /* Mostra o nome do processo anterior/próximo nos botões do topo */
 function updateProcessNav() {
-    const ids = Object.keys(PROCESSES);
+    const ids = getNavIds();
     const index = ids.indexOf(state.currentId);
     const prev = PROCESSES[ids[(index - 1 + ids.length) % ids.length]].title;
     const next = PROCESSES[ids[(index + 1) % ids.length]].title;
+
+    // Só um processo no filtro: não há para onde navegar
+    const visibility = ids.length > 1 ? '' : 'hidden';
+    document.getElementById('prevProcess').style.visibility = visibility;
+    document.getElementById('nextProcess').style.visibility = visibility;
 
     document.getElementById('prevProcessLabel').textContent = prev;
     document.getElementById('nextProcessLabel').textContent = next;
@@ -694,7 +709,7 @@ function closeReader() {
 
 /* Setas do topo: abre a prévia do processo anterior (-1) ou seguinte (+1) */
 function goToProcess(step) {
-    const ids = Object.keys(PROCESSES);
+    const ids = getNavIds();
     const index = ids.indexOf(state.currentId);
     const target = ids[(index + step + ids.length) % ids.length];
 
