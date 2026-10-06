@@ -37,6 +37,21 @@ const PROCESSES = {
         title: 'Caso Hipótese de Crime Passional',
         pdf: 'processos/Processo_Crime_Passional.pdf',
         preview: 'previa_processos/PROCESSOS_HISTORICOS_crime_passional_em_1959.pdf'
+    },
+    'arnon-de-mello': {
+        title: 'Caso Arnon de Mello',
+        pdf: 'processos/Processo_Arnon_de_Mello.pdf',
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_arnon_de_mello.pdf'
+    },
+    'darcy-ribeiro': {
+        title: 'Caso Darcy Ribeiro',
+        pdf: 'processos/Processo_Darcy_Ribeiro.pdf',
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_darcy_ribeiro.pdf'
+    },
+    'roubo-diamante': {
+        title: 'Pressuposto Roubo do Diamante 007 em 1965',
+        pdf: 'processos/Processo_Roubo_Diamante.pdf',
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_diamante_007.pdf'
     }
 };
 
@@ -687,24 +702,129 @@ function goToProcess(step) {
     openPreview(target);
 }
 
+/* Filtro: ordem cronológica (ano lido do nº do processo) e tipo (1º título do card) */
+const filterState = { order: '', type: '' };
+
+function getCardMeta(card) {
+    const type = (card.querySelector('.process-type')?.textContent || '').split('–')[0].trim();
+    const number = card.querySelector('.process-card-info p:not(.process-type)')?.textContent || '';
+    const match = number.match(/\/\s*(\d{2,4})/);
+    let year = match ? parseInt(match[1], 10) : null;
+    if (match && match[1].length === 2) year += 1900;
+    return { type, year };
+}
+
+function applyFilters() {
+    const grid = document.getElementById('processGrid');
+    const query = processSearch.value.trim().toLowerCase();
+    const cards = [...grid.querySelectorAll('.process-card')];
+
+    cards.sort((a, b) => {
+        const ya = a.dataset.year;
+        const yb = b.dataset.year;
+
+        if (filterState.order) {
+            if (ya && yb && ya !== yb) return filterState.order === 'asc' ? ya - yb : yb - ya;
+            if (!ya !== !yb) return ya ? -1 : 1;
+        }
+        return a.dataset.index - b.dataset.index;
+    });
+
+    let visible = 0;
+
+    cards.forEach(card => {
+        grid.appendChild(card);
+
+        const matchName = card.dataset.processName.toLowerCase().includes(query);
+        const matchType = !filterState.type || card.dataset.type === filterState.type;
+        const match = matchName && matchType;
+
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+    });
+
+    noResults.hidden = visible !== 0;
+
+    document.querySelectorAll('.filter-option').forEach(option => {
+        const selected = option.dataset.order
+            ? option.dataset.order === filterState.order
+            : option.dataset.type === filterState.type;
+        option.classList.toggle('is-selected', selected);
+    });
+
+    const active = Boolean(filterState.order || filterState.type);
+    document.getElementById('filterToggle').classList.toggle('is-active', active);
+    document.getElementById('filterClear').hidden = !active;
+}
+
 function setupSearch() {
-    processSearch.addEventListener('input', () => {
-        const query = processSearch.value
-            .trim()
-            .toLowerCase();
+    processSearch.addEventListener('input', applyFilters);
+}
 
-        let visible = 0;
+function setupFilter() {
+    const toggle = document.getElementById('filterToggle');
+    const menu = document.getElementById('filterMenu');
+    const typeBox = document.getElementById('filterTypeOptions');
+    const cards = [...document.querySelectorAll('.process-card')];
 
-        document.querySelectorAll('.process-card').forEach(card => {
-            const name = card.dataset.processName.toLowerCase();
-            const match = name.includes(query);
+    cards.forEach((card, index) => {
+        const { type, year } = getCardMeta(card);
+        card.dataset.index = index;
+        card.dataset.type = type;
+        if (year) card.dataset.year = year;
+    });
 
-            card.style.display = match ? '' : 'none';
+    [...new Set(cards.map(card => card.dataset.type).filter(Boolean))].forEach(type => {
+        const option = document.createElement('button');
+        option.type = 'button';
+        option.className = 'filter-option';
+        option.dataset.type = type;
+        option.textContent = type;
+        typeBox.appendChild(option);
+    });
 
-            if (match) visible++;
-        });
+    const closeMenu = () => {
+        menu.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+    };
 
-        noResults.hidden = visible !== 0;
+    toggle.addEventListener('click', event => {
+        event.stopPropagation();
+        menu.hidden = !menu.hidden;
+        toggle.setAttribute('aria-expanded', String(!menu.hidden));
+    });
+
+    document.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeMenu();
+    });
+
+    menu.addEventListener('click', event => {
+        event.stopPropagation();
+
+        const topic = event.target.closest('.filter-topic');
+        if (topic) {
+            const options = topic.nextElementSibling;
+            options.hidden = !options.hidden;
+            topic.setAttribute('aria-expanded', String(!options.hidden));
+            return;
+        }
+
+        const option = event.target.closest('.filter-option');
+        if (!option) return;
+
+        if (option.dataset.order) {
+            filterState.order = filterState.order === option.dataset.order ? '' : option.dataset.order;
+        } else {
+            filterState.type = filterState.type === option.dataset.type ? '' : option.dataset.type;
+        }
+        applyFilters();
+    });
+
+    document.getElementById('filterClear').addEventListener('click', () => {
+        filterState.order = '';
+        filterState.type = '';
+        applyFilters();
     });
 }
 
@@ -793,15 +913,29 @@ function setupEvents() {
 /*
  * Gestos no leitor.
  * Toque: dois dedos = zoom (pinça); um dedo com zoom = mover a página;
- * um dedo sem zoom = deslizar para virar a página.
+ * um dedo sem zoom = arrastar para folhear/virar a página (o toque é
+ * repassado ao PageFlip como se fosse o mouse).
  * Mouse: arrastar com zoom = mover a página (sem zoom o PageFlip vira
  * a página arrastando, como antes).
  */
 function setupReaderGestures() {
     const touch = {
         mode: null, startX: 0, startY: 0, panX: 0, panY: 0,
-        dist: 0, zoom: 1, midX: 0, midY: 0, wasPinch: false
+        dist: 0, zoom: 1, midX: 0, midY: 0, wasPinch: false,
+        flipping: false, target: null, lastX: 0, lastY: 0
     };
+
+    // Reproduz o mouse para o PageFlip (ele já faz o efeito de folhear)
+    function fireMouse(type, x, y) {
+        let target = touch.target;
+        if (!target || !book.contains(target)) {
+            target = book.querySelector('.stf__wrapper') || book;
+        }
+        target.dispatchEvent(new MouseEvent(type, {
+            bubbles: true, cancelable: true, view: window, button: 0,
+            buttons: type === 'mouseup' ? 0 : 1, clientX: x, clientY: y
+        }));
+    }
 
     const distance = t => Math.hypot(
         t[0].clientX - t[1].clientX,
@@ -814,6 +948,8 @@ function setupReaderGestures() {
 
     function startSingle(t) {
         touch.mode = 'single';
+        touch.flipping = false;
+        touch.target = t.target;
         touch.startX = t.clientX;
         touch.startY = t.clientY;
         touch.panX = state.panX;
@@ -832,6 +968,12 @@ function setupReaderGestures() {
         const t = event.touches;
 
         if (t.length >= 2) {
+            // Segundo dedo: encerra o arrasto de página que estava em andamento
+            if (touch.flipping) {
+                fireMouse('mouseup', touch.lastX, touch.lastY);
+                touch.flipping = false;
+            }
+
             const mid = midpoint(t);
             touch.mode = 'pinch';
             touch.wasPinch = true;
@@ -868,6 +1010,20 @@ function setupReaderGestures() {
             state.panX = touch.panX + (t[0].clientX - touch.startX);
             state.panY = touch.panY + (t[0].clientY - touch.startY);
             applyTransform();
+        } else if (touch.mode === 'single' && t.length === 1 && !touch.wasPinch) {
+            // Sem zoom: o dedo arrasta a página como o mouse
+            const x = t[0].clientX;
+            const y = t[0].clientY;
+
+            if (!touch.flipping) {
+                if (Math.hypot(x - touch.startX, y - touch.startY) < 6) return;
+                touch.flipping = true;
+                fireMouse('mousedown', touch.startX, touch.startY);
+            }
+
+            touch.lastX = x;
+            touch.lastY = y;
+            fireMouse('mousemove', x, y);
         }
     }
 
@@ -879,15 +1035,11 @@ function setupReaderGestures() {
 
         const remaining = event.touches;
 
-        // Deslizar para os lados (sem zoom) vira a página
-        if (touch.mode === 'single' && !touch.wasPinch &&
-            state.zoom <= 1.02 && event.changedTouches.length) {
-            const dx = event.changedTouches[0].clientX - touch.startX;
-            const dy = event.changedTouches[0].clientY - touch.startY;
-
-            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
-                if (dx < 0) goNext(); else goPrevious();
-            }
+        // Soltou o dedo: o PageFlip decide se a página vira ou volta
+        if (touch.flipping && event.changedTouches.length) {
+            const c = event.changedTouches[0];
+            fireMouse('mouseup', c.clientX, c.clientY);
+            touch.flipping = false;
         }
 
         if (remaining.length === 0) {
@@ -946,6 +1098,7 @@ function setupReaderGestures() {
 }
 
 setupSearch();
+setupFilter();
 setupEvents();
 setupPreviewZoom();
 setupReaderGestures();

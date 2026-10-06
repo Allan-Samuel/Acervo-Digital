@@ -31,10 +31,40 @@
                     <h2>Processos disponíveis</h2>
                 </div>
 
-                <label class="search-box">
-                    <span aria-hidden="true">⌕</span>
-                    <input id="processSearch" type="search" placeholder="Pesquisar processo..." autocomplete="off">
-                </label>
+                <div class="heading-tools">
+                    <div class="filter-wrap">
+                        <button id="filterToggle" class="filter-toggle" type="button"
+                                aria-haspopup="true" aria-expanded="false">
+                            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                <path d="M3 5h18l-7 8v6l-4-2v-4z" fill="none" stroke="currentColor"
+                                      stroke-width="1.8" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Filtrar</span>
+                        </button>
+
+                        <div id="filterMenu" class="filter-menu" hidden>
+                            <div class="filter-group">
+                                <button class="filter-topic" type="button" aria-expanded="false">Ordem cronológica</button>
+                                <div class="filter-options" hidden>
+                                    <button class="filter-option" type="button" data-order="asc">Mais antigos primeiro</button>
+                                    <button class="filter-option" type="button" data-order="desc">Mais recentes primeiro</button>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <button class="filter-topic" type="button" aria-expanded="false">Tipo</button>
+                                <div id="filterTypeOptions" class="filter-options" hidden></div>
+                            </div>
+
+                            <button id="filterClear" class="filter-clear" type="button" hidden>Limpar filtros</button>
+                        </div>
+                    </div>
+
+                    <label class="search-box">
+                        <span aria-hidden="true">⌕</span>
+                        <input id="processSearch" type="search" placeholder="Pesquisar processo..." autocomplete="off">
+                    </label>
+                </div>
             </div>
 
             <div id="processGrid" class="process-grid">
@@ -148,6 +178,63 @@
                             <p class="process-type">AÇÃO PENAL</p>
                             <h3>Caso Hipótese de Crime Passional</h3>
                             <p>Processo nº 590/1960</p>
+                        </div>
+                    </button>
+                </article>
+
+                <article class="process-card"
+                    data-process-name="Caso Arnon de Mello"
+                    data-process-id="arnon-de-mello">
+                    <button class="process-card-button" type="button">
+                        <div class="process-thumbnail-wrap">
+                            <img src="img/logo_arnon_de_mello.jpg"
+                                 alt="Caso Arnon de Mello"
+                                 class="process-thumbnail">
+                            <div class="open-overlay">ABRIR PROCESSO</div>
+                        </div>
+
+                        <div class="process-card-info">
+                            <p class="process-type">AÇÃO PENAL PÚBLICA</p>
+                            <h3>Caso Arnon de Mello</h3>
+                            <p>Processo nº 967/1963</p>
+                        </div>
+                    </button>
+                </article>
+
+                <article class="process-card"
+                    data-process-name="Darcy Ribeiro"
+                    data-process-id="darcy-ribeiro">
+                    <button class="process-card-button" type="button">
+                        <div class="process-thumbnail-wrap">
+                            <img src="img/logo_darcy_ribeiro.jpg"
+                                 alt="Darcy Ribeiro"
+                                 class="process-thumbnail">
+                            <div class="open-overlay">ABRIR PROCESSO</div>
+                        </div>
+
+                        <div class="process-card-info">
+                            <p class="process-type">QUEIXA-CRIME (AÇÃO PENAL PRIVADA)</p>
+                            <h3>Caso Darcy Ribeiro</h3>
+                            <p>Processo nº 23278/80</p>
+                        </div>
+                    </button>
+                </article>
+
+                <article class="process-card"
+                    data-process-name="Roubo do Diamante"
+                    data-process-id="roubo-diamante">
+                    <button class="process-card-button" type="button">
+                        <div class="process-thumbnail-wrap">
+                            <img src="img/logo_roubo_diamante.jpg"
+                                 alt="Roubo do Diamante"
+                                 class="process-thumbnail">
+                            <div class="open-overlay">ABRIR PROCESSO</div>
+                        </div>
+
+                        <div class="process-card-info">
+                            <p class="process-type">AÇÃO PENAL</p>
+                            <h3>Pressuposto Roubo do Diamante 007 em 1965</h3>
+                            <p>Processo nº 1734/66 - S001736/84</p>
                         </div>
                     </button>
                 </article>

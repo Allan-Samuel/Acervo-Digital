@@ -875,3 +875,128 @@ button {
         padding: 0 12px;
     }
 }
+
+/* Filtro de processos */
+
+.heading-tools {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+}
+
+.filter-wrap {
+    position: relative;
+    z-index: 20;
+}
+
+.filter-toggle {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    height: 100%;
+    padding: 10px 15px;
+    border: 1px solid rgba(85,0,28,.24);
+    color: var(--ink);
+    background: rgba(255,255,255,.66);
+    font: inherit;
+    cursor: pointer;
+}
+
+.filter-toggle svg {
+    color: var(--gold);
+}
+
+.filter-toggle:hover,
+.filter-toggle.is-active {
+    border-color: var(--gold);
+}
+
+.filter-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 280px;
+    max-height: 70vh;
+    overflow-y: auto;
+    border: 1px solid rgba(85,0,28,.24);
+    background: var(--paper-light);
+    box-shadow: 0 15px 45px var(--shadow);
+}
+
+.filter-topic,
+.filter-option,
+.filter-clear {
+    display: block;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.filter-topic {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 18px;
+    color: var(--wine);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.filter-topic::after {
+    content: '+';
+    color: var(--gold);
+    font-size: 18px;
+}
+
+.filter-topic[aria-expanded="true"]::after {
+    content: '−';
+}
+
+.filter-group + .filter-group {
+    border-top: 1px solid rgba(85,0,28,.12);
+}
+
+.filter-option {
+    padding: 9px 18px 9px 30px;
+    color: var(--ink);
+    font-size: 14px;
+}
+
+.filter-option:hover {
+    background: rgba(198,146,25,.16);
+}
+
+.filter-option.is-selected {
+    color: var(--wine);
+    font-weight: 600;
+}
+
+.filter-option.is-selected::before {
+    content: '✓ ';
+    color: var(--gold);
+}
+
+.filter-clear {
+    padding: 12px 18px;
+    border-top: 1px solid rgba(85,0,28,.12);
+    color: var(--wine-soft);
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+@media (max-width: 850px) {
+    .heading-tools {
+        width: 100%;
+    }
+
+    .heading-tools .search-box {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+    }
+}
