@@ -251,8 +251,16 @@ function closePreview() {
     document.body.style.overflow = '';
 }
 
+let thumbnailToken = 0;
+
 async function renderPreviewThumbnail(previewUrl) {
+    const token = ++thumbnailToken;
+    const miniPage = document.querySelector('.mini-page');
     const canvas = document.getElementById('previewPageCanvas');
+
+    // Mostra o círculo de carregamento até a miniatura ficar pronta
+    miniPage.classList.remove('is-error');
+    miniPage.classList.add('is-loading');
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 
     try {
@@ -263,6 +271,12 @@ async function renderPreviewThumbnail(previewUrl) {
             disableAutoFetch: true
         }).promise;
         const page = await pdf.getPage(1);
+
+        // Outro processo foi aberto enquanto este carregava: descarta
+        if (token !== thumbnailToken) {
+            pdf.destroy();
+            return;
+        }
 
         const context = canvas.getContext('2d');
 
@@ -280,8 +294,17 @@ async function renderPreviewThumbnail(previewUrl) {
         }).promise;
 
         pdf.destroy();
+
+        if (token === thumbnailToken) {
+            miniPage.classList.remove('is-loading');
+        }
     } catch (error) {
         console.error('Não foi possível renderizar a miniatura:', error);
+
+        if (token === thumbnailToken) {
+            miniPage.classList.remove('is-loading');
+            miniPage.classList.add('is-error');
+        }
     }
 }
 

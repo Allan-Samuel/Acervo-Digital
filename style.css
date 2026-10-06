@@ -1000,3 +1000,54 @@ button {
         min-width: 0;
     }
 }
+
+/* MINIATURA DA 1ª PÁGINA: círculo de carregamento */
+
+.mini-page.is-loading,
+.mini-page.is-error {
+    aspect-ratio: 210 / 297;
+    background: var(--paper-light);
+}
+
+.mini-page.is-loading canvas,
+.mini-page.is-error canvas {
+    display: none;
+}
+
+.mini-page-loading {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mini-page.is-loading .mini-page-loading,
+.mini-page.is-error .mini-page-loading {
+    display: flex;
+}
+
+.mini-page-loading .spinner {
+    width: 30px;
+    height: 30px;
+    border-color: rgba(85,0,28,.15);
+    border-top-color: var(--gold);
+}
+
+.mini-page-error {
+    display: none;
+    padding: 0 10px;
+    color: var(--wine-soft);
+    font-size: 10px;
+    text-align: center;
+}
+
+.mini-page.is-error .spinner {
+    display: none;
+}
+
+.mini-page.is-error .mini-page-error {
+    display: block;
+}
