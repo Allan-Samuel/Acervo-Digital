@@ -1,59 +1,142 @@
 /* global pdfjsLib, St */
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
-    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    window.PDFJS_WORKER_SRC || 'lib/pdf.worker.min.js';
 
 /*
- * Para adicionar um novo processo: inclua uma entrada aqui
- * (a chave deve ser igual ao data-process-id do card no index.html).
+ * Para adicionar um novo processo: inclua uma entrada aqui. O card da tela
+ * inicial é criado automaticamente a partir dela (não é preciso mexer no HTML).
+ *
+ *   title    título mostrado na prévia e no leitor
+ *   pdf      processo completo
+ *   preview  PDF de apresentação (prévia)
+ *   card     dados do card da tela inicial (name = texto usado na pesquisa)
  */
 const PROCESSES = {
     'hugo-auler': {
         title: 'Inventário Hugo Auler',
         pdf: 'processos/Processo_de_Inventário_Hugo_Auler.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_inventario_hugo_auler.pdf'
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_inventario_hugo_auler.pdf',
+        card: {
+            name: "Inventário Hugo Auler",
+            thumbnail: "img/logo_inventario_hugo_auler.jpg",
+            alt: "Inventário Hugo Auler",
+            type: "TESTAMENTO",
+            heading: "Inventário Hugo Auler",
+            number: "Processo nº 31971/1980"
+        }
     },
     'ana-lidia': {
         title: 'Caso Ana Lídia',
         pdf: 'processos/Processo_Ana_Lídia.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_ana_lidia.pdf'
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_ana_lidia.pdf',
+        card: {
+            name: "Caso Ana Lídia",
+            thumbnail: "img/logo_caso_ana_lidia.jpg",
+            alt: "Caso Ana Lídia",
+            type: "AÇÃO PENAL",
+            heading: "Caso Ana Lídia",
+            number: "Processo nº A0001948/1985 (00000549/74)"
+        }
     },
     'oscar-niemeyer': {
         title: 'Caso Oscar Niemeyer',
         pdf: 'processos/Processo_Oscar_Niemeyer.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_oscar_niemeyer.pdf'
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_oscar_niemeyer.pdf',
+        card: {
+            name: "Oscar Niemeyer",
+            thumbnail: "img/logo_oscar_niemeyer.jpg",
+            alt: "Oscar Niemeyer",
+            type: "AÇÃO PENAL",
+            heading: "Caso Oscar Niemeyer",
+            number: "Processo nº 24371/1965"
+        }
     },
     'dois-candangos': {
         title: 'Dois Candangos',
         pdf: 'processos/Processo_Dois_Candangos.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_dois_candangos.pdf'
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_dois_candangos.pdf',
+        card: {
+            name: "Dois Candangos",
+            thumbnail: "img/logo_dois_candangos.jpg",
+            alt: "Dois Candangos",
+            type: "ACIDENTE DE TRABALHO – 3/4/1962",
+            heading: "Dois Candangos",
+            number: "Processo nº S3066/62"
+        }
     },
     'caixa-dagua': {
         title: "Demolição da Caixa d'Água de Taguatinga",
         pdf: 'processos/Processo_Caixa_Dagua.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_caixa_dagua.pdf'
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_caixa_dagua.pdf',
+        card: {
+            name: "Caso Caixa d'Água",
+            thumbnail: "img/logo_caixa_dagua.jpg",
+            alt: "Caso Caixa d'Água",
+            type: "AÇÃO POPULAR",
+            heading: "Demolição da Caixa d'Água de Taguatinga",
+            number: "Processo nº 15.429/1981 e 2.185/1981"
+        }
     },
     'crime-passional': {
         title: 'Caso Hipótese de Crime Passional',
         pdf: 'processos/Processo_Crime_Passional.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_crime_passional_em_1959.pdf'
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_crime_passional_em_1959.pdf',
+        card: {
+            name: "Crime Passional em 1959",
+            thumbnail: "img/logo_crime_passional.jpg",
+            alt: "Crime Passional em 1959",
+            type: "AÇÃO PENAL",
+            heading: "Caso Hipótese de Crime Passional",
+            number: "Processo nº 590/1960"
+        }
     },
     'arnon-de-mello': {
         title: 'Caso Arnon de Mello',
         pdf: 'processos/Processo_Arnon_de_Mello.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_arnon_de_mello.pdf'
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_arnon_de_mello.pdf',
+        card: {
+            name: "Caso Arnon de Mello",
+            thumbnail: "img/logo_arnon_de_mello.jpg",
+            alt: "Caso Arnon de Mello",
+            type: "AÇÃO PENAL",
+            heading: "Caso Arnon de Mello",
+            number: "Processo nº 967/1963"
+        }
     },
     'darcy-ribeiro': {
         title: 'Caso Darcy Ribeiro',
         pdf: 'processos/Processo_Darcy_Ribeiro.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_darcy_ribeiro.pdf'
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_darcy_ribeiro.pdf',
+        card: {
+            name: "Darcy Ribeiro",
+            thumbnail: "img/logo_darcy_ribeiro.jpg",
+            alt: "Darcy Ribeiro",
+            type: "QUEIXA-CRIME (AÇÃO PENAL PRIVADA)",
+            heading: "Caso Darcy Ribeiro",
+            number: "Processo nº 23278/80"
+        }
     },
     'roubo-diamante': {
         title: 'Pressuposto Roubo do Diamante 007 em 1965',
         pdf: 'processos/Processo_Roubo_Diamante.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_diamante_007.pdf'
+        preview: 'previa_processos/PROCESSOS_HISTORICOS_diamante_007.pdf',
+        card: {
+            name: "Roubo do Diamante",
+            thumbnail: "img/logo_roubo_diamante.jpg",
+            alt: "Roubo do Diamante",
+            type: "AÇÃO PENAL",
+            heading: "Pressuposto Roubo do Diamante 007 em 1965",
+            number: "Processo nº 1734/66 - S001736/84"
+        }
     }
 };
+
+/*
+ * Quiosque: volta sozinho para a tela inicial depois deste tempo sem
+ * nenhum toque, clique ou tecla (em milissegundos; 0 desativa).
+ */
+const IDLE_TIMEOUT_MS = 3 * 60 * 1000;
 
 const state = {
     pdf: null,
@@ -308,6 +391,32 @@ async function renderPreviewThumbnail(previewUrl) {
     }
 }
 
+/* Libera o livro atual (PDF, páginas desenhadas e PageFlip) e zera o zoom */
+function disposeBook() {
+    state.renderToken++;
+
+    if (state.pdf) {
+        try { state.pdf.destroy(); } catch (e) { /* ignora */ }
+        state.pdf = null;
+    }
+    if (state.pageFlip) {
+        try { state.pageFlip.destroy(); } catch (e) { /* ignora */ }
+        state.pageFlip = null;
+    }
+    if (!document.getElementById('book')) {
+        book = document.createElement('div');
+        book.id = 'book';
+        book.className = 'book';
+        bookStage.appendChild(book);
+    }
+
+    book.innerHTML = '';
+    state.loadedId = null;
+    state.panX = 0;
+    state.panY = 0;
+    setZoom(1);
+}
+
 async function openBook() {
     // Dentro do clique do usuário: entra em tela cheia automaticamente
     enterFullscreen();
@@ -333,26 +442,8 @@ async function openBook() {
         return;
     }
 
-    // Outro processo: descarta o livro anterior e zera o zoom
-    state.renderToken++;
-    if (state.pdf) {
-        try { state.pdf.destroy(); } catch (e) { /* ignora */ }
-        state.pdf = null;
-    }
-    if (state.pageFlip) {
-        try { state.pageFlip.destroy(); } catch (e) { /* ignora */ }
-        state.pageFlip = null;
-    }
-    if (!document.getElementById('book')) {
-        book = document.createElement('div');
-        book.id = 'book';
-        book.className = 'book';
-        bookStage.appendChild(book);
-    }
-    book.innerHTML = '';
-    state.panX = 0;
-    state.panY = 0;
-    setZoom(1);
+    // Outro processo: descarta o livro anterior
+    disposeBook();
 
     bookLoading.innerHTML = loadingHTML;
     bookLoading.style.display = 'flex';
@@ -1135,8 +1226,102 @@ function setupReaderGestures() {
     bookStage.addEventListener('pointercancel', endMousePan);
 }
 
+/* Cria os cards da tela inicial a partir de PROCESSES */
+function renderCards() {
+    const grid = document.getElementById('processGrid');
+    grid.innerHTML = '';
+
+    Object.entries(PROCESSES).forEach(([id, proc]) => {
+        const { card } = proc;
+
+        const article = document.createElement('article');
+        article.className = 'process-card';
+        article.dataset.processName = card.name;
+        article.dataset.processId = id;
+
+        article.innerHTML = `
+            <button class="process-card-button" type="button">
+                <div class="process-thumbnail-wrap">
+                    <img class="process-thumbnail" alt="">
+                    <div class="open-overlay">ABRIR PROCESSO</div>
+                </div>
+
+                <div class="process-card-info">
+                    <p class="process-type"></p>
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </button>`;
+
+        const image = article.querySelector('.process-thumbnail');
+        image.src = card.thumbnail;
+        image.alt = card.alt;
+
+        article.querySelector('.process-type').textContent = card.type;
+        article.querySelector('h3').textContent = card.heading;
+        article.querySelector('.process-card-info p:last-child').textContent = card.number;
+
+        grid.appendChild(article);
+    });
+}
+
+/* Volta ao estado inicial: fecha prévia/leitor, limpa busca e filtros, libera memória */
+function resetToHome() {
+    hideReader();
+    closePreview();
+
+    document.getElementById('filterMenu').hidden = true;
+    document.getElementById('filterToggle').setAttribute('aria-expanded', 'false');
+
+    processSearch.value = '';
+    filterState.order = '';
+    filterState.type = '';
+    applyFilters();
+
+    disposeBook();
+    state.currentId = null;
+
+    window.scrollTo(0, 0);
+}
+
+/* Quiosque: depois de um tempo sem uso, prepara a tela para o próximo visitante */
+function setupIdleReset() {
+    if (!IDLE_TIMEOUT_MS) return;
+
+    let timer = null;
+    let lastActivity = 0;
+
+    const somethingToReset = () =>
+        previewModal.classList.contains('is-open') ||
+        readerModal.classList.contains('is-open') ||
+        processSearch.value !== '' ||
+        filterState.order !== '' ||
+        filterState.type !== '' ||
+        window.scrollY > 0;
+
+    const schedule = () => {
+        const now = Date.now();
+        if (timer && now - lastActivity < 1000) return;   // evita reagendar a cada pixel
+        lastActivity = now;
+
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            if (somethingToReset()) resetToHome();
+        }, IDLE_TIMEOUT_MS);
+    };
+
+    // Captura: enxerga também os toques que o leitor interrompe (stopPropagation)
+    ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart'].forEach(type => {
+        document.addEventListener(type, schedule, { passive: true, capture: true });
+    });
+
+    schedule();
+}
+
+renderCards();
 setupSearch();
 setupFilter();
 setupEvents();
 setupPreviewZoom();
 setupReaderGestures();
+setupIdleReset();

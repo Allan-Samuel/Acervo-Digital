@@ -314,16 +314,11 @@ button {
 }
 
 .preview-pdf-wrap {
+    display: flex;
+    flex-direction: column;
     min-height: 0;
     border: 1px solid rgba(85,0,28,.14);
     background: #d8d1c1;
-}
-
-.preview-pdf-wrap iframe {
-    width: 100%;
-    height: 100%;
-    display: block;
-    border: 0;
 }
 
 .complete-process-card {
@@ -407,12 +402,12 @@ button {
 .reader-topbar {
     position: relative;
     z-index: 3;
-    height: 70px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    padding: 8px 18px;
+    gap: 14px;
+    padding: 4px 14px;
     border-bottom: 1px solid rgba(255,255,255,.10);
     background: rgba(31,23,18,.92);
 }
@@ -421,6 +416,11 @@ button {
     display: block;
     margin-bottom: 2px;
     font-size: 9px;
+}
+
+.reader-title {
+    flex: 1;
+    min-width: 0;
 }
 
 .reader-title strong {
@@ -464,7 +464,7 @@ button {
 
 .reader-main {
     position: absolute;
-    inset: 70px 0 54px;
+    inset: 56px 0 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -473,8 +473,8 @@ button {
 
 .book-stage {
     position: relative;
-    width: min(94vw, 1260px);
-    height: min(82vh, 820px);
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -483,8 +483,8 @@ button {
 }
 
 .book {
-    width: min(90vw, 1180px);
-    height: min(78vh, 770px);
+    width: 100%;
+    height: 100%;
     transition: transform .12s ease;
     transform-origin: center center;
 }
@@ -559,7 +559,7 @@ button {
     position: absolute;
     z-index: 3;
     inset: auto 0 0;
-    height: 54px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -599,11 +599,6 @@ button {
         margin: 0 auto;
     }
 
-    .book {
-        width: 92vw;
-        height: 70vh;
-    }
-
     .page-arrow {
         width: 40px;
         height: 60px;
@@ -615,10 +610,6 @@ button {
 
     .page-arrow-right {
         right: 5px;
-    }
-
-    .touch-hint {
-        display: none;
     }
 }
 
@@ -643,21 +634,9 @@ button {
         font-size: 19px;
     }
 
-    .fullscreen-button {
-        display: none;
-    }
-
-    .reader-main {
-        inset-top: 70px;
-    }
 }
 
 /* PRÉVIA COM ZOOM */
-
-.preview-pdf-wrap {
-    display: flex;
-    flex-direction: column;
-}
 
 .preview-toolbar {
     flex: 0 0 auto;
@@ -756,30 +735,7 @@ button {
     opacity: .9;
 }
 
-/* LEITOR: ocupa o máximo de espaço possível */
-
-.reader-topbar {
-    height: 56px;
-    padding: 4px 14px;
-}
-
-.reader-main {
-    inset: 56px 0 40px;
-}
-
-.reader-bottombar {
-    height: 40px;
-}
-
-.book-stage {
-    width: 100%;
-    height: 100%;
-}
-
-.book {
-    width: 100%;
-    height: 100%;
-}
+/* LEITOR: zoom e gestos */
 
 .book-stage.is-gesturing .book {
     transition: none;
@@ -791,10 +747,6 @@ button {
 
 .book-stage.is-zoomed.is-gesturing {
     cursor: grabbing;
-}
-
-.touch-hint {
-    display: inline;
 }
 
 /* TELAS TOUCH (quiosque): alvos de toque maiores */
@@ -828,15 +780,6 @@ button {
 
 
 /* SETAS DE PROCESSO (extremidades superiores do leitor) */
-
-.reader-topbar {
-    gap: 14px;
-}
-
-.reader-title {
-    flex: 1;
-    min-width: 0;
-}
 
 .process-nav {
     display: flex;
