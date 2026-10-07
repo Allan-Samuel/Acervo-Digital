@@ -7,33 +7,33 @@
 </head>
 <body>
 
-    <button id="pageFullscreen" class="page-fullscreen" type="button"
+    <button id="telaCheiaPagina" class="tela-cheia-pagina" type="button"
             aria-label="Alternar tela cheia" title="Tela cheia">⛶</button>
 
-    <header class="site-header">
-        <img src="img/logo_memorial.jpg" alt="Memorial TJDFT - Desembargadora Lila Pimenta Duarte" class="memorial-logo">
+    <header class="cabecalho-site">
+        <img src="img/logo_memorial.jpg" alt="Memorial TJDFT - Desembargadora Lila Pimenta Duarte" class="logo-memorial">
     </header>
 
-    <main class="landing-page">
-        <section class="hero">
-            <p class="eyebrow">MEMORIAL TJDFT</p>
+    <main class="pagina-inicial">
+        <section class="destaque">
+            <p class="sobretitulo">MEMORIAL TJDFT</p>
             <h1>PROCESSOS HISTÓRICOS</h1>
-            <div class="gold-line"></div>
-            <p class="hero-subtitle">
+            <div class="linha-dourada"></div>
+            <p class="destaque-subtitulo">
                 Acervo histórico para consulta e preservação da memória institucional.
             </p>
         </section>
 
-        <section class="process-section">
-            <div class="section-heading">
+        <section class="secao-processos">
+            <div class="cabecalho-secao">
                 <div>
-                    <p class="section-kicker">ACERVO DIGITAL</p>
+                    <p class="secao-chamada">ACERVO DIGITAL</p>
                     <h2>Processos disponíveis</h2>
                 </div>
 
-                <div class="heading-tools">
-                    <div class="filter-wrap">
-                        <button id="filterToggle" class="filter-toggle" type="button"
+                <div class="ferramentas-cabecalho">
+                    <div class="filtro-envoltorio">
+                        <button id="alternarFiltro" class="filtro-alternar" type="button"
                                 aria-haspopup="true" aria-expanded="false">
                             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                                 <path d="M3 5h18l-7 8v6l-4-2v-4z" fill="none" stroke="currentColor"
@@ -42,84 +42,84 @@
                             <span>Filtrar</span>
                         </button>
 
-                        <div id="filterMenu" class="filter-menu" hidden>
-                            <div class="filter-group">
-                                <button class="filter-topic" type="button" aria-expanded="false">Ordem cronológica</button>
-                                <div class="filter-options" hidden>
-                                    <button class="filter-option" type="button" data-order="asc">Mais antigos primeiro</button>
-                                    <button class="filter-option" type="button" data-order="desc">Mais recentes primeiro</button>
+                        <div id="menuFiltro" class="filtro-menu" hidden>
+                            <div class="filtro-grupo">
+                                <button class="filtro-topico" type="button" aria-expanded="false">Ordem cronológica</button>
+                                <div class="filtro-opcoes" hidden>
+                                    <button class="filtro-opcao" type="button" data-ordem="crescente">Mais antigos primeiro</button>
+                                    <button class="filtro-opcao" type="button" data-ordem="decrescente">Mais recentes primeiro</button>
                                 </div>
                             </div>
 
-                            <div class="filter-group">
-                                <button class="filter-topic" type="button" aria-expanded="false">Tipo</button>
-                                <div id="filterTypeOptions" class="filter-options" hidden></div>
+                            <div class="filtro-grupo">
+                                <button class="filtro-topico" type="button" aria-expanded="false">Tipo</button>
+                                <div id="opcoesTipoFiltro" class="filtro-opcoes" hidden></div>
                             </div>
 
-                            <button id="filterClear" class="filter-clear" type="button" hidden>Limpar filtros</button>
+                            <button id="limparFiltro" class="filtro-limpar" type="button" hidden>Limpar filtros</button>
                         </div>
                     </div>
 
-                    <label class="search-box">
+                    <label class="caixa-busca">
                         <span aria-hidden="true">⌕</span>
-                        <input id="processSearch" type="search" placeholder="Pesquisar processo..." autocomplete="off">
+                        <input id="buscaProcesso" type="search" placeholder="Pesquisar processo..." autocomplete="off">
                     </label>
                 </div>
             </div>
 
-            <div id="processGrid" class="process-grid"></div>
+            <div id="gradeProcessos" class="grade-processos"></div>
 
-            <div id="noResults" class="no-results" hidden>
+            <div id="semResultados" class="sem-resultados" hidden>
                 Nenhum processo encontrado.
             </div>
         </section>
     </main>
 
     <!-- Modal do PDF de apresentação -->
-    <div id="previewModal" class="modal" aria-hidden="true">
-        <div class="modal-backdrop" data-close="preview"></div>
+    <div id="modalPrevia" class="modal" aria-hidden="true">
+        <div class="modal-fundo" data-fechar="previa"></div>
 
-        <section class="preview-modal-panel" role="dialog" aria-modal="true"
-                 aria-labelledby="previewTitle">
-            <div class="modal-header">
+        <section class="painel-modal-previa" role="dialog" aria-modal="true"
+                 aria-labelledby="tituloPrevia">
+            <div class="modal-cabecalho">
                 <div>
-                    <p class="modal-kicker">PROCESSOS HISTÓRICOS</p>
-                    <h2 id="previewTitle">Inventário Hugo Auler</h2>
+                    <p class="modal-chamada">PROCESSOS HISTÓRICOS</p>
+                    <h2 id="tituloPrevia">Inventário Hugo Auler</h2>
                 </div>
-                <button class="icon-button" id="closePreview" type="button" aria-label="Fechar">×</button>
+                <button class="botao-icone" id="fecharPrevia" type="button" aria-label="Fechar">×</button>
             </div>
 
-            <div class="preview-content">
-                <div class="preview-pdf-wrap">
-                    <div class="preview-toolbar">
-                        <button id="previewZoomOut" class="preview-zoom-btn" type="button" aria-label="Diminuir zoom">−</button>
-                        <span id="previewZoomValue" class="preview-zoom-value">100%</span>
-                        <button id="previewZoomIn" class="preview-zoom-btn" type="button" aria-label="Aumentar zoom">+</button>
-                        <button id="previewZoomReset" class="preview-zoom-btn preview-zoom-reset" type="button" aria-label="Ajustar à largura">Ajustar</button>
+            <div class="previa-conteudo">
+                <div class="previa-pdf-envoltorio">
+                    <div class="previa-barra-ferramentas">
+                        <button id="previaDiminuirZoom" class="previa-zoom-botao" type="button" aria-label="Diminuir zoom">−</button>
+                        <span id="previaValorZoom" class="previa-zoom-valor">100%</span>
+                        <button id="previaAumentarZoom" class="previa-zoom-botao" type="button" aria-label="Aumentar zoom">+</button>
+                        <button id="previaRedefinirZoom" class="previa-zoom-botao previa-zoom-redefinir" type="button" aria-label="Ajustar à largura">Ajustar</button>
                     </div>
-                    <div id="previewViewport" class="preview-viewport">
-                        <div id="previewPages" class="preview-pages"></div>
+                    <div id="previaAreaVisivel" class="previa-area-visivel">
+                        <div id="previaPaginas" class="previa-paginas"></div>
                     </div>
                 </div>
 
-                <aside class="complete-process-card">
-                    <div class="mini-page">
-                        <canvas id="previewPageCanvas"></canvas>
-                        <div class="mini-page-loading" aria-label="Carregando miniatura">
+                <aside class="cartao-processo-completo">
+                    <div class="mini-pagina">
+                        <canvas id="previaCanvasPagina"></canvas>
+                        <div class="mini-pagina-carregando" aria-label="Carregando miniatura">
                             <div class="spinner"></div>
-                            <span class="mini-page-error">Miniatura indisponível</span>
+                            <span class="mini-pagina-erro">Miniatura indisponível</span>
                         </div>
-                        <span class="mini-page-label">1ª PÁGINA</span>
+                        <span class="mini-pagina-rotulo">1ª PÁGINA</span>
                     </div>
 
-                    <p class="complete-kicker">LEITURA DO PROCESSO</p>
+                    <p class="chamada-completo">LEITURA DO PROCESSO</p>
                     <h3>Processo completo</h3>
                     <p>
                         Consulte o documento integral em uma interface de leitura
                         no formato de livro.
                     </p>
 
-                    <button id="openBook" class="primary-button" type="button">
+                    <button id="abrirLivro" class="botao-primario" type="button">
                         Clique aqui para visualizar o processo completo
                     </button>
                 </aside>
@@ -128,57 +128,57 @@
     </div>
 
     <!-- Leitor em formato de livro -->
-    <div id="readerModal" class="reader-modal" aria-hidden="true">
-        <div class="reader-backdrop"></div>
+    <div id="modalLeitor" class="modal-leitor" aria-hidden="true">
+        <div class="leitor-fundo"></div>
 
-        <header class="reader-topbar">
-            <button id="prevProcess" class="reader-control process-nav" type="button"
+        <header class="leitor-barra-superior">
+            <button id="processoAnterior" class="leitor-controle navegacao-processo" type="button"
                     aria-label="Processo anterior" title="Processo anterior">
-                <span class="process-nav-arrow">←</span>
-                <span id="prevProcessLabel" class="process-nav-label">Processo anterior</span>
+                <span class="navegacao-processo-seta">←</span>
+                <span id="rotuloProcessoAnterior" class="navegacao-processo-rotulo">Processo anterior</span>
             </button>
 
-            <div class="reader-title">
-                <span class="reader-kicker">PROCESSOS HISTÓRICOS</span>
-                <strong id="readerTitle">Inventário Hugo Auler</strong>
+            <div class="leitor-titulo">
+                <span class="leitor-chamada">PROCESSOS HISTÓRICOS</span>
+                <strong id="tituloLeitor">Inventário Hugo Auler</strong>
             </div>
 
-            <div class="reader-actions">
-                <button id="zoomOut" class="reader-control" type="button" aria-label="Diminuir zoom">−</button>
-                <span id="zoomValue" class="zoom-value">100%</span>
-                <button id="zoomIn" class="reader-control" type="button" aria-label="Aumentar zoom">+</button>
-                <button id="goHome" class="reader-control" type="button"
+            <div class="leitor-acoes">
+                <button id="diminuirZoom" class="leitor-controle" type="button" aria-label="Diminuir zoom">−</button>
+                <span id="valorZoom" class="zoom-valor">100%</span>
+                <button id="aumentarZoom" class="leitor-controle" type="button" aria-label="Aumentar zoom">+</button>
+                <button id="irParaInicio" class="leitor-controle" type="button"
                         aria-label="Voltar à página inicial" title="Página inicial">⌂</button>
-                <button id="closeReader" class="reader-control close-reader" type="button"
+                <button id="fecharLeitor" class="leitor-controle fechar-leitor" type="button"
                         aria-label="Fechar leitor">×</button>
             </div>
 
-            <button id="nextProcess" class="reader-control process-nav" type="button"
+            <button id="proximoProcesso" class="leitor-controle navegacao-processo" type="button"
                     aria-label="Próximo processo" title="Próximo processo">
-                <span id="nextProcessLabel" class="process-nav-label">Próximo processo</span>
-                <span class="process-nav-arrow">→</span>
+                <span id="rotuloProximoProcesso" class="navegacao-processo-rotulo">Próximo processo</span>
+                <span class="navegacao-processo-seta">→</span>
             </button>
         </header>
 
-        <main class="reader-main">
-            <div id="bookStage" class="book-stage">
-                <div id="bookLoading" class="book-loading">
+        <main class="leitor-principal">
+            <div id="palcoLivro" class="palco-livro">
+                <div id="carregandoLivro" class="livro-carregando">
                     <div class="spinner"></div>
                     <p>Preparando o processo...</p>
                 </div>
 
-                <div id="book" class="book"></div>
+                <div id="livro" class="livro"></div>
             </div>
 
-            <button id="previousPage" class="page-arrow page-arrow-left" type="button"
+            <button id="paginaAnterior" class="seta-pagina seta-pagina-esquerda" type="button"
                     aria-label="Página anterior">‹</button>
-            <button id="nextPage" class="page-arrow page-arrow-right" type="button"
+            <button id="proximaPagina" class="seta-pagina seta-pagina-direita" type="button"
                     aria-label="Próxima página">›</button>
         </main>
 
-        <footer class="reader-bottombar">
-            <span id="pageCounter">1–2 / 7</span>
-            <span class="touch-hint">Deslize para virar a página · Use dois dedos para ampliar</span>
+        <footer class="leitor-barra-inferior">
+            <span id="contadorPaginas">1–2 / 7</span>
+            <span class="dica-toque">Deslize para virar a página · Use dois dedos para ampliar</span>
         </footer>
     </div>
 
@@ -189,11 +189,11 @@
     -->
     <script src="lib/pdf.min.js"></script>
     <script>
-        window.PDFJS_WORKER_SRC = 'lib/pdf.worker.min.js';
+        window.CAMINHO_WORKER_PDFJS = 'lib/pdf.worker.min.js';
 
         if (typeof pdfjsLib === 'undefined') {
             document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"><\/script>');
-            window.PDFJS_WORKER_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+            window.CAMINHO_WORKER_PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         }
     </script>
     <script src="lib/page-flip.browser.js"></script>

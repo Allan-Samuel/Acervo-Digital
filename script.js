@@ -1,133 +1,133 @@
 /* global pdfjsLib, St */
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
-    window.PDFJS_WORKER_SRC || 'lib/pdf.worker.min.js';
+    window.CAMINHO_WORKER_PDFJS || 'lib/pdf.worker.min.js';
 
 /*
  * Para adicionar um novo processo: inclua uma entrada aqui. O card da tela
  * inicial é criado automaticamente a partir dela (não é preciso mexer no HTML).
  *
- *   title    título mostrado na prévia e no leitor
+ *   titulo   título mostrado na prévia e no leitor
  *   pdf      processo completo
- *   preview  PDF de apresentação (prévia)
- *   card     dados do card da tela inicial (name = texto usado na pesquisa)
+ *   previa   PDF de apresentação (prévia)
+ *   cartao   dados do card da tela inicial (nome = texto usado na pesquisa)
  */
-const PROCESSES = {
+const PROCESSOS = {
     'hugo-auler': {
-        title: 'Inventário Hugo Auler',
+        titulo: 'Inventário Hugo Auler',
         pdf: 'processos/Processo_de_Inventário_Hugo_Auler.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_inventario_hugo_auler.pdf',
-        card: {
-            name: "Inventário Hugo Auler",
-            thumbnail: "img/logo_inventario_hugo_auler.jpg",
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_inventario_hugo_auler.pdf',
+        cartao: {
+            nome: "Inventário Hugo Auler",
+            miniatura: "img/logo_inventario_hugo_auler.jpg",
             alt: "Inventário Hugo Auler",
-            type: "TESTAMENTO",
-            heading: "Inventário Hugo Auler",
-            number: "Processo nº 31971/1980"
+            tipo: "TESTAMENTO",
+            cabecalho: "Inventário Hugo Auler",
+            numero: "Processo nº 31971/1980"
         }
     },
     'ana-lidia': {
-        title: 'Caso Ana Lídia',
+        titulo: 'Caso Ana Lídia',
         pdf: 'processos/Processo_Ana_Lídia.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_ana_lidia.pdf',
-        card: {
-            name: "Caso Ana Lídia",
-            thumbnail: "img/logo_caso_ana_lidia.jpg",
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_caso_ana_lidia.pdf',
+        cartao: {
+            nome: "Caso Ana Lídia",
+            miniatura: "img/logo_caso_ana_lidia.jpg",
             alt: "Caso Ana Lídia",
-            type: "AÇÃO PENAL",
-            heading: "Caso Ana Lídia",
-            number: "Processo nº A0001948/1985 (00000549/74)"
+            tipo: "AÇÃO PENAL",
+            cabecalho: "Caso Ana Lídia",
+            numero: "Processo nº A0001948/1985 (00000549/74)"
         }
     },
     'oscar-niemeyer': {
-        title: 'Caso Oscar Niemeyer',
+        titulo: 'Caso Oscar Niemeyer',
         pdf: 'processos/Processo_Oscar_Niemeyer.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_oscar_niemeyer.pdf',
-        card: {
-            name: "Oscar Niemeyer",
-            thumbnail: "img/logo_oscar_niemeyer.jpg",
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_caso_oscar_niemeyer.pdf',
+        cartao: {
+            nome: "Oscar Niemeyer",
+            miniatura: "img/logo_oscar_niemeyer.jpg",
             alt: "Oscar Niemeyer",
-            type: "AÇÃO PENAL",
-            heading: "Caso Oscar Niemeyer",
-            number: "Processo nº 24371/1965"
+            tipo: "AÇÃO PENAL",
+            cabecalho: "Caso Oscar Niemeyer",
+            numero: "Processo nº 24371/1965"
         }
     },
     'dois-candangos': {
-        title: 'Dois Candangos',
+        titulo: 'Dois Candangos',
         pdf: 'processos/Processo_Dois_Candangos.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_dois_candangos.pdf',
-        card: {
-            name: "Dois Candangos",
-            thumbnail: "img/logo_dois_candangos.jpg",
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_dois_candangos.pdf',
+        cartao: {
+            nome: "Dois Candangos",
+            miniatura: "img/logo_dois_candangos.jpg",
             alt: "Dois Candangos",
-            type: "ACIDENTE DE TRABALHO – 3/4/1962",
-            heading: "Dois Candangos",
-            number: "Processo nº S3066/62"
+            tipo: "ACIDENTE DE TRABALHO – 3/4/1962",
+            cabecalho: "Dois Candangos",
+            numero: "Processo nº S3066/62"
         }
     },
     'caixa-dagua': {
-        title: "Demolição da Caixa d'Água de Taguatinga",
+        titulo: "Demolição da Caixa d'Água de Taguatinga",
         pdf: 'processos/Processo_Caixa_Dagua.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_caixa_dagua.pdf',
-        card: {
-            name: "Caso Caixa d'Água",
-            thumbnail: "img/logo_caixa_dagua.jpg",
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_caso_caixa_dagua.pdf',
+        cartao: {
+            nome: "Caso Caixa d'Água",
+            miniatura: "img/logo_caixa_dagua.jpg",
             alt: "Caso Caixa d'Água",
-            type: "AÇÃO POPULAR",
-            heading: "Demolição da Caixa d'Água de Taguatinga",
-            number: "Processo nº 15.429/1981 e 2.185/1981"
+            tipo: "AÇÃO POPULAR",
+            cabecalho: "Demolição da Caixa d'Água de Taguatinga",
+            numero: "Processo nº 15.429/1981 e 2.185/1981"
         }
     },
     'crime-passional': {
-        title: 'Caso Hipótese de Crime Passional',
+        titulo: 'Caso Hipótese de Crime Passional',
         pdf: 'processos/Processo_Crime_Passional.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_crime_passional_em_1959.pdf',
-        card: {
-            name: "Crime Passional em 1959",
-            thumbnail: "img/logo_crime_passional.jpg",
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_crime_passional_em_1959.pdf',
+        cartao: {
+            nome: "Crime Passional em 1959",
+            miniatura: "img/logo_crime_passional.jpg",
             alt: "Crime Passional em 1959",
-            type: "AÇÃO PENAL",
-            heading: "Caso Hipótese de Crime Passional",
-            number: "Processo nº 590/1960"
+            tipo: "AÇÃO PENAL",
+            cabecalho: "Caso Hipótese de Crime Passional",
+            numero: "Processo nº 590/1960"
         }
     },
     'arnon-de-mello': {
-        title: 'Caso Arnon de Mello',
+        titulo: 'Caso Arnon de Mello',
         pdf: 'processos/Processo_Arnon_de_Mello.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_caso_arnon_de_mello.pdf',
-        card: {
-            name: "Caso Arnon de Mello",
-            thumbnail: "img/logo_arnon_de_mello.jpg",
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_caso_arnon_de_mello.pdf',
+        cartao: {
+            nome: "Caso Arnon de Mello",
+            miniatura: "img/logo_arnon_de_mello.jpg",
             alt: "Caso Arnon de Mello",
-            type: "AÇÃO PENAL",
-            heading: "Caso Arnon de Mello",
-            number: "Processo nº 967/1963"
+            tipo: "AÇÃO PENAL",
+            cabecalho: "Caso Arnon de Mello",
+            numero: "Processo nº 967/1963"
         }
     },
     'darcy-ribeiro': {
-        title: 'Caso Darcy Ribeiro',
+        titulo: 'Caso Darcy Ribeiro',
         pdf: 'processos/Processo_Darcy_Ribeiro.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_darcy_ribeiro.pdf',
-        card: {
-            name: "Darcy Ribeiro",
-            thumbnail: "img/logo_darcy_ribeiro.jpg",
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_darcy_ribeiro.pdf',
+        cartao: {
+            nome: "Darcy Ribeiro",
+            miniatura: "img/logo_darcy_ribeiro.jpg",
             alt: "Darcy Ribeiro",
-            type: "QUEIXA-CRIME (AÇÃO PENAL PRIVADA)",
-            heading: "Caso Darcy Ribeiro",
-            number: "Processo nº 23278/80"
+            tipo: "QUEIXA-CRIME (AÇÃO PENAL PRIVADA)",
+            cabecalho: "Caso Darcy Ribeiro",
+            numero: "Processo nº 23278/80"
         }
     },
     'roubo-diamante': {
-        title: 'Pressuposto Roubo do Diamante 007 em 1965',
+        titulo: 'Pressuposto Roubo do Diamante 007 em 1965',
         pdf: 'processos/Processo_Roubo_Diamante.pdf',
-        preview: 'previa_processos/PROCESSOS_HISTORICOS_diamante_007.pdf',
-        card: {
-            name: "Roubo do Diamante",
-            thumbnail: "img/logo_roubo_diamante.jpg",
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_diamante_007.pdf',
+        cartao: {
+            nome: "Roubo do Diamante",
+            miniatura: "img/logo_roubo_diamante.jpg",
             alt: "Roubo do Diamante",
-            type: "AÇÃO PENAL",
-            heading: "Pressuposto Roubo do Diamante 007 em 1965",
-            number: "Processo nº 1734/66 - S001736/84"
+            tipo: "AÇÃO PENAL",
+            cabecalho: "Pressuposto Roubo do Diamante 007 em 1965",
+            numero: "Processo nº 1734/66 - S001736/84"
         }
     }
 };
@@ -136,57 +136,57 @@ const PROCESSES = {
  * Quiosque: volta sozinho para a tela inicial depois deste tempo sem
  * nenhum toque, clique ou tecla (em milissegundos; 0 desativa).
  */
-const IDLE_TIMEOUT_MS = 3 * 60 * 1000;
+const TEMPO_OCIOSO_MS = 3 * 60 * 1000;
 
-const state = {
+const estado = {
     pdf: null,
     pageFlip: null,
     zoom: 1,
-    panX: 0,
-    panY: 0,
-    renderedPages: [],
-    totalPages: 0,
-    currentId: null,
-    loadedId: null,
-    pageStates: [],
-    renderToken: 0
+    deslocX: 0,
+    deslocY: 0,
+    paginasRenderizadas: [],
+    totalPaginas: 0,
+    idAtual: null,
+    idCarregado: null,
+    estadosPaginas: [],
+    tokenRenderizacao: 0
 };
 
-const previewModal = document.getElementById('previewModal');
-const readerModal = document.getElementById('readerModal');
-let book = document.getElementById('book');
-const bookStage = document.getElementById('bookStage');
-const bookLoading = document.getElementById('bookLoading');
-const pageCounter = document.getElementById('pageCounter');
-const zoomValue = document.getElementById('zoomValue');
-const previewViewport = document.getElementById('previewViewport');
-const previewPages = document.getElementById('previewPages');
-const previewZoomValue = document.getElementById('previewZoomValue');
-const previewTitle = document.getElementById('previewTitle');
-const readerTitle = document.getElementById('readerTitle');
-const loadingHTML = bookLoading.innerHTML;
+const modalPrevia = document.getElementById('modalPrevia');
+const modalLeitor = document.getElementById('modalLeitor');
+let livro = document.getElementById('livro');
+const palcoLivro = document.getElementById('palcoLivro');
+const carregandoLivro = document.getElementById('carregandoLivro');
+const contadorPaginas = document.getElementById('contadorPaginas');
+const valorZoom = document.getElementById('valorZoom');
+const areaPrevia = document.getElementById('previaAreaVisivel');
+const paginasPrevia = document.getElementById('previaPaginas');
+const valorZoomPrevia = document.getElementById('previaValorZoom');
+const tituloPrevia = document.getElementById('tituloPrevia');
+const tituloLeitor = document.getElementById('tituloLeitor');
+const htmlCarregando = carregandoLivro.innerHTML;
 
-const processSearch = document.getElementById('processSearch');
-const noResults = document.getElementById('noResults');
+const buscaProcesso = document.getElementById('buscaProcesso');
+const semResultados = document.getElementById('semResultados');
 
-function openPreview(processId) {
-    const proc = PROCESSES[processId];
-    if (!proc) return;
+function abrirPrevia(idProcesso) {
+    const processo = PROCESSOS[idProcesso];
+    if (!processo) return;
 
-    state.currentId = processId;
+    estado.idAtual = idProcesso;
 
-    previewTitle.textContent = proc.title;
+    tituloPrevia.textContent = processo.titulo;
 
-    previewModal.classList.add('is-open');
-    previewModal.setAttribute('aria-hidden', 'false');
+    modalPrevia.classList.add('esta-aberto');
+    modalPrevia.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    setPreviewZoom(1);
-    previewViewport.scrollTop = 0;
-    previewViewport.scrollLeft = 0;
+    definirZoomPrevia(1);
+    areaPrevia.scrollTop = 0;
+    areaPrevia.scrollLeft = 0;
 
-    renderPreviewPages(proc.preview);
-    renderPreviewThumbnail(proc.pdf);
+    renderizarPaginasPrevia(processo.previa);
+    renderizarMiniaturaPrevia(processo.pdf);
 }
 
 /*
@@ -194,305 +194,305 @@ function openPreview(processId) {
  * canvas (em vez de um iframe), para permitir zoom in/out apontando
  * para o ponto desejado.
  */
-const previewState = { zoom: 1, token: 0, pdf: null };
+const estadoPrevia = { zoom: 1, token: 0, pdf: null };
 
-async function renderPreviewPages(url) {
-    const token = ++previewState.token;
+async function renderizarPaginasPrevia(url) {
+    const token = ++estadoPrevia.token;
 
-    if (previewState.pdf) {
-        try { previewState.pdf.destroy(); } catch (e) { /* ignora */ }
-        previewState.pdf = null;
+    if (estadoPrevia.pdf) {
+        try { estadoPrevia.pdf.destroy(); } catch (e) { /* ignora */ }
+        estadoPrevia.pdf = null;
     }
 
-    previewPages.innerHTML = '<p class="preview-loading">Carregando prévia...</p>';
+    paginasPrevia.innerHTML = '<p class="previa-carregando">Carregando prévia...</p>';
 
     try {
         const pdf = await pdfjsLib.getDocument(url).promise;
 
-        if (token !== previewState.token) {
+        if (token !== estadoPrevia.token) {
             pdf.destroy();
             return;
         }
 
-        previewState.pdf = pdf;
-        previewPages.innerHTML = '';
+        estadoPrevia.pdf = pdf;
+        paginasPrevia.innerHTML = '';
 
         for (let n = 1; n <= pdf.numPages; n++) {
-            const page = await pdf.getPage(n);
-            if (token !== previewState.token) return;
+            const pagina = await pdf.getPage(n);
+            if (token !== estadoPrevia.token) return;
 
-            const baseViewport = page.getViewport({ scale: 1 });
-            const viewport = page.getViewport({
-                scale: 1800 / baseViewport.width
+            const viewportBase = pagina.getViewport({ scale: 1 });
+            const viewport = pagina.getViewport({
+                scale: 1800 / viewportBase.width
             });
 
             const canvas = document.createElement('canvas');
             canvas.width = Math.floor(viewport.width);
             canvas.height = Math.floor(viewport.height);
-            previewPages.appendChild(canvas);
+            paginasPrevia.appendChild(canvas);
 
-            await page.render({
+            await pagina.render({
                 canvasContext: canvas.getContext('2d'),
                 viewport,
                 background: '#ffffff'
             }).promise;
 
-            page.cleanup();
+            pagina.cleanup();
         }
-    } catch (error) {
-        if (token !== previewState.token) return;
-        console.error('Não foi possível renderizar a prévia:', error);
-        previewPages.innerHTML =
-            '<p class="preview-loading">Não foi possível carregar a prévia.</p>';
+    } catch (erro) {
+        if (token !== estadoPrevia.token) return;
+        console.error('Não foi possível renderizar a prévia:', erro);
+        paginasPrevia.innerHTML =
+            '<p class="previa-carregando">Não foi possível carregar a prévia.</p>';
     }
 }
 
-function setPreviewZoom(value, clientX = null, clientY = null) {
-    const newZoom = Math.max(.5, Math.min(3, value));
+function definirZoomPrevia(valor, cliqueX = null, cliqueY = null) {
+    const novoZoom = Math.max(.5, Math.min(3, valor));
 
-    const rect = previewViewport.getBoundingClientRect();
-    const mx = clientX === null ? rect.width / 2 : clientX - rect.left;
-    const my = clientY === null ? rect.height / 2 : clientY - rect.top;
+    const retangulo = areaPrevia.getBoundingClientRect();
+    const mx = cliqueX === null ? retangulo.width / 2 : cliqueX - retangulo.left;
+    const my = cliqueY === null ? retangulo.height / 2 : cliqueY - retangulo.top;
 
     // Proporção do conteúdo que está sob o ponto apontado
-    const oldWidth = previewPages.offsetWidth;
-    const oldHeight = previewPages.offsetHeight;
-    const ratioX = oldWidth
-        ? (previewViewport.scrollLeft + mx - previewPages.offsetLeft) / oldWidth
+    const larguraAnterior = paginasPrevia.offsetWidth;
+    const alturaAnterior = paginasPrevia.offsetHeight;
+    const proporcaoX = larguraAnterior
+        ? (areaPrevia.scrollLeft + mx - paginasPrevia.offsetLeft) / larguraAnterior
         : 0.5;
-    const ratioY = oldHeight
-        ? (previewViewport.scrollTop + my - previewPages.offsetTop) / oldHeight
+    const proporcaoY = alturaAnterior
+        ? (areaPrevia.scrollTop + my - paginasPrevia.offsetTop) / alturaAnterior
         : 0;
 
-    previewState.zoom = newZoom;
-    previewPages.style.width = `${newZoom * 100}%`;
-    previewZoomValue.textContent = `${Math.round(newZoom * 100)}%`;
+    estadoPrevia.zoom = novoZoom;
+    paginasPrevia.style.width = `${novoZoom * 100}%`;
+    valorZoomPrevia.textContent = `${Math.round(novoZoom * 100)}%`;
 
     // Mantém o ponto apontado no mesmo lugar da tela
-    previewViewport.scrollLeft =
-        ratioX * previewPages.offsetWidth + previewPages.offsetLeft - mx;
-    previewViewport.scrollTop =
-        ratioY * previewPages.offsetHeight + previewPages.offsetTop - my;
+    areaPrevia.scrollLeft =
+        proporcaoX * paginasPrevia.offsetWidth + paginasPrevia.offsetLeft - mx;
+    areaPrevia.scrollTop =
+        proporcaoY * paginasPrevia.offsetHeight + paginasPrevia.offsetTop - my;
 }
 
-function setupPreviewZoom() {
-    document.getElementById('previewZoomIn')
-        .addEventListener('click', () => setPreviewZoom(previewState.zoom + .25));
+function configurarZoomPrevia() {
+    document.getElementById('previaAumentarZoom')
+        .addEventListener('click', () => definirZoomPrevia(estadoPrevia.zoom + .25));
 
-    document.getElementById('previewZoomOut')
-        .addEventListener('click', () => setPreviewZoom(previewState.zoom - .25));
+    document.getElementById('previaDiminuirZoom')
+        .addEventListener('click', () => definirZoomPrevia(estadoPrevia.zoom - .25));
 
-    document.getElementById('previewZoomReset')
-        .addEventListener('click', () => setPreviewZoom(1));
+    document.getElementById('previaRedefinirZoom')
+        .addEventListener('click', () => definirZoomPrevia(1));
 
     // Ctrl + roda do mouse (ou pinça no trackpad) = zoom no ponto apontado
-    previewViewport.addEventListener('wheel', event => {
-        if (!event.ctrlKey) return;
+    areaPrevia.addEventListener('wheel', evento => {
+        if (!evento.ctrlKey) return;
 
-        event.preventDefault();
+        evento.preventDefault();
 
-        const step = event.deltaY < 0 ? .15 : -.15;
-        setPreviewZoom(previewState.zoom + step, event.clientX, event.clientY);
+        const passo = evento.deltaY < 0 ? .15 : -.15;
+        definirZoomPrevia(estadoPrevia.zoom + passo, evento.clientX, evento.clientY);
     }, { passive: false });
 
     // Arrastar com o mouse para mover a página ampliada
-    let drag = null;
+    let arraste = null;
 
-    previewViewport.addEventListener('pointerdown', event => {
-        if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    areaPrevia.addEventListener('pointerdown', evento => {
+        if (evento.pointerType !== 'mouse' || evento.button !== 0) return;
 
-        drag = {
-            x: event.clientX,
-            y: event.clientY,
-            left: previewViewport.scrollLeft,
-            top: previewViewport.scrollTop
+        arraste = {
+            x: evento.clientX,
+            y: evento.clientY,
+            esquerda: areaPrevia.scrollLeft,
+            topo: areaPrevia.scrollTop
         };
 
-        previewViewport.classList.add('is-dragging');
-        previewViewport.setPointerCapture(event.pointerId);
+        areaPrevia.classList.add('esta-arrastando');
+        areaPrevia.setPointerCapture(evento.pointerId);
     });
 
-    previewViewport.addEventListener('pointermove', event => {
-        if (!drag) return;
+    areaPrevia.addEventListener('pointermove', evento => {
+        if (!arraste) return;
 
-        previewViewport.scrollLeft = drag.left - (event.clientX - drag.x);
-        previewViewport.scrollTop = drag.top - (event.clientY - drag.y);
+        areaPrevia.scrollLeft = arraste.esquerda - (evento.clientX - arraste.x);
+        areaPrevia.scrollTop = arraste.topo - (evento.clientY - arraste.y);
     });
 
-    const endDrag = () => {
-        drag = null;
-        previewViewport.classList.remove('is-dragging');
+    const terminarArraste = () => {
+        arraste = null;
+        areaPrevia.classList.remove('esta-arrastando');
     };
 
-    previewViewport.addEventListener('pointerup', endDrag);
-    previewViewport.addEventListener('pointercancel', endDrag);
+    areaPrevia.addEventListener('pointerup', terminarArraste);
+    areaPrevia.addEventListener('pointercancel', terminarArraste);
 }
 
-function closePreview() {
-    previewModal.classList.remove('is-open');
-    previewModal.setAttribute('aria-hidden', 'true');
+function fecharPrevia() {
+    modalPrevia.classList.remove('esta-aberto');
+    modalPrevia.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
 }
 
-let thumbnailToken = 0;
+let tokenMiniatura = 0;
 
-async function renderPreviewThumbnail(previewUrl) {
-    const token = ++thumbnailToken;
-    const miniPage = document.querySelector('.mini-page');
-    const canvas = document.getElementById('previewPageCanvas');
+async function renderizarMiniaturaPrevia(urlPrevia) {
+    const token = ++tokenMiniatura;
+    const miniPagina = document.querySelector('.mini-pagina');
+    const canvas = document.getElementById('previaCanvasPagina');
 
     // Mostra o círculo de carregamento até a miniatura ficar pronta
-    miniPage.classList.remove('is-error');
-    miniPage.classList.add('is-loading');
+    miniPagina.classList.remove('tem-erro');
+    miniPagina.classList.add('esta-carregando');
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 
     try {
         // Miniatura = 1ª página do processo completo. disableAutoFetch evita
         // baixar o PDF inteiro só para desenhar a primeira página.
         const pdf = await pdfjsLib.getDocument({
-            url: previewUrl,
+            url: urlPrevia,
             disableAutoFetch: true
         }).promise;
-        const page = await pdf.getPage(1);
+        const pagina = await pdf.getPage(1);
 
         // Outro processo foi aberto enquanto este carregava: descarta
-        if (token !== thumbnailToken) {
+        if (token !== tokenMiniatura) {
             pdf.destroy();
             return;
         }
 
-        const context = canvas.getContext('2d');
+        const contexto = canvas.getContext('2d');
 
-        const targetWidth = 260;
-        const viewport = page.getViewport({ scale: 1 });
-        const scale = targetWidth / viewport.width;
-        const scaledViewport = page.getViewport({ scale });
+        const larguraAlvo = 260;
+        const viewport = pagina.getViewport({ scale: 1 });
+        const escala = larguraAlvo / viewport.width;
+        const viewportEscalado = pagina.getViewport({ scale: escala });
 
-        canvas.width = scaledViewport.width;
-        canvas.height = scaledViewport.height;
+        canvas.width = viewportEscalado.width;
+        canvas.height = viewportEscalado.height;
 
-        await page.render({
-            canvasContext: context,
-            viewport: scaledViewport
+        await pagina.render({
+            canvasContext: contexto,
+            viewport: viewportEscalado
         }).promise;
 
         pdf.destroy();
 
-        if (token === thumbnailToken) {
-            miniPage.classList.remove('is-loading');
+        if (token === tokenMiniatura) {
+            miniPagina.classList.remove('esta-carregando');
         }
-    } catch (error) {
-        console.error('Não foi possível renderizar a miniatura:', error);
+    } catch (erro) {
+        console.error('Não foi possível renderizar a miniatura:', erro);
 
-        if (token === thumbnailToken) {
-            miniPage.classList.remove('is-loading');
-            miniPage.classList.add('is-error');
+        if (token === tokenMiniatura) {
+            miniPagina.classList.remove('esta-carregando');
+            miniPagina.classList.add('tem-erro');
         }
     }
 }
 
 /* Libera o livro atual (PDF, páginas desenhadas e PageFlip) e zera o zoom */
-function disposeBook() {
-    state.renderToken++;
+function descartarLivro() {
+    estado.tokenRenderizacao++;
 
-    if (state.pdf) {
-        try { state.pdf.destroy(); } catch (e) { /* ignora */ }
-        state.pdf = null;
+    if (estado.pdf) {
+        try { estado.pdf.destroy(); } catch (e) { /* ignora */ }
+        estado.pdf = null;
     }
-    if (state.pageFlip) {
-        try { state.pageFlip.destroy(); } catch (e) { /* ignora */ }
-        state.pageFlip = null;
+    if (estado.pageFlip) {
+        try { estado.pageFlip.destroy(); } catch (e) { /* ignora */ }
+        estado.pageFlip = null;
     }
-    if (!document.getElementById('book')) {
-        book = document.createElement('div');
-        book.id = 'book';
-        book.className = 'book';
-        bookStage.appendChild(book);
+    if (!document.getElementById('livro')) {
+        livro = document.createElement('div');
+        livro.id = 'livro';
+        livro.className = 'livro';
+        palcoLivro.appendChild(livro);
     }
 
-    book.innerHTML = '';
-    state.loadedId = null;
-    state.panX = 0;
-    state.panY = 0;
-    setZoom(1);
+    livro.innerHTML = '';
+    estado.idCarregado = null;
+    estado.deslocX = 0;
+    estado.deslocY = 0;
+    definirZoom(1);
 }
 
-async function openBook() {
+async function abrirLivro() {
     // Dentro do clique do usuário: entra em tela cheia automaticamente
-    enterFullscreen();
+    entrarTelaCheia();
 
-    closePreview();
+    fecharPrevia();
 
-    readerModal.classList.add('is-open');
-    readerModal.setAttribute('aria-hidden', 'false');
+    modalLeitor.classList.add('esta-aberto');
+    modalLeitor.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    const proc = PROCESSES[state.currentId];
-    readerTitle.textContent = proc.title;
-    updateProcessNav();
+    const processo = PROCESSOS[estado.idAtual];
+    tituloLeitor.textContent = processo.titulo;
+    atualizarNavegacaoProcessos();
 
     // Cada abertura começa sem zoom
-    state.panX = 0;
-    state.panY = 0;
-    setZoom(1);
+    estado.deslocX = 0;
+    estado.deslocY = 0;
+    definirZoom(1);
 
     // Mesmo processo já carregado: apenas reabre o leitor
-    if (state.pageFlip && state.loadedId === state.currentId) {
-        updateCounter();
+    if (estado.pageFlip && estado.idCarregado === estado.idAtual) {
+        atualizarContador();
         return;
     }
 
     // Outro processo: descarta o livro anterior
-    disposeBook();
+    descartarLivro();
 
-    bookLoading.innerHTML = loadingHTML;
-    bookLoading.style.display = 'flex';
+    carregandoLivro.innerHTML = htmlCarregando;
+    carregandoLivro.style.display = 'flex';
 
     try {
-        state.pdf = await pdfjsLib.getDocument({
-            url: proc.pdf,
+        estado.pdf = await pdfjsLib.getDocument({
+            url: processo.pdf,
             disableAutoFetch: true
         }).promise;
-        state.totalPages = state.pdf.numPages;
+        estado.totalPaginas = estado.pdf.numPages;
 
-        await createBookPages();
-        createPageFlip();
-        await ensurePages(0);
-        state.loadedId = state.currentId;
+        await criarPaginasLivro();
+        criarPageFlip();
+        await garantirPaginas(0);
+        estado.idCarregado = estado.idAtual;
 
-        bookLoading.style.display = 'none';
-    } catch (error) {
-        console.error(error);
-        bookLoading.innerHTML =
+        carregandoLivro.style.display = 'none';
+    } catch (erro) {
+        console.error(erro);
+        carregandoLivro.innerHTML =
             '<p>Não foi possível carregar o processo.</p>';
     }
 }
 
-async function createBookPages() {
-    book.innerHTML = '';
-    state.renderedPages = [];
-    state.pageStates = new Array(state.totalPages).fill(null);
+async function criarPaginasLivro() {
+    livro.innerHTML = '';
+    estado.paginasRenderizadas = [];
+    estado.estadosPaginas = new Array(estado.totalPaginas).fill(null);
 
     /*
      * Cada página do PDF vira uma "página" do livro, mas aqui só criamos
      * os espaços vazios. O desenho (canvas) é feito sob demanda em
-     * ensurePages(), apenas para as páginas próximas da que está aberta.
+     * garantirPaginas(), apenas para as páginas próximas da que está aberta.
      * Isso evita travar o computador em processos com muitas páginas.
      */
-    const fragment = document.createDocumentFragment();
+    const fragmento = document.createDocumentFragment();
 
-    for (let pageNumber = 1; pageNumber <= state.totalPages; pageNumber++) {
-        const pageContainer = document.createElement('div');
-        pageContainer.className = 'page';
-        pageContainer.dataset.pageNumber = pageNumber;
+    for (let numeroPagina = 1; numeroPagina <= estado.totalPaginas; numeroPagina++) {
+        const containerPagina = document.createElement('div');
+        containerPagina.className = 'pagina';
+        containerPagina.dataset.numeroPagina = numeroPagina;
 
         const canvas = document.createElement('canvas');
         canvas.width = 1;
         canvas.height = 1;
-        pageContainer.appendChild(canvas);
-        fragment.appendChild(pageContainer);
+        containerPagina.appendChild(canvas);
+        fragmento.appendChild(containerPagina);
 
-        state.renderedPages.push(pageContainer);
+        estado.paginasRenderizadas.push(containerPagina);
     }
 
     /*
@@ -500,27 +500,27 @@ async function createBookPages() {
      * na dupla e o livro se descentraliza ao virá-la. Uma página em
      * branco no final mantém sempre a dupla completa.
      */
-    if (state.totalPages % 2 !== 0) {
-        const filler = document.createElement('div');
-        filler.className = 'page page-filler';
-        filler.style.background = '#f8f4e8';
-        fragment.appendChild(filler);
+    if (estado.totalPaginas % 2 !== 0) {
+        const paginaVazia = document.createElement('div');
+        paginaVazia.className = 'pagina pagina-vazia';
+        paginaVazia.style.background = '#f8f4e8';
+        fragmento.appendChild(paginaVazia);
     }
 
-    book.appendChild(fragment);
+    livro.appendChild(fragmento);
 }
 
-async function renderPdfPage(pageNumber, canvas, pdf) {
-    const page = await pdf.getPage(pageNumber);
+async function renderizarPaginaPdf(numeroPagina, canvas, pdf) {
+    const pagina = await pdf.getPage(numeroPagina);
 
     /*
      * Largura fixa de renderização (em pixels): nítida o bastante para
      * o zoom, sem consumir memória demais por página.
      */
-    const targetWidth = 1800;
-    const baseViewport = page.getViewport({ scale: 1 });
-    const viewport = page.getViewport({
-        scale: targetWidth / baseViewport.width
+    const larguraAlvo = 1800;
+    const viewportBase = pagina.getViewport({ scale: 1 });
+    const viewport = pagina.getViewport({
+        scale: larguraAlvo / viewportBase.width
     });
 
     canvas.width = Math.floor(viewport.width);
@@ -528,67 +528,67 @@ async function renderPdfPage(pageNumber, canvas, pdf) {
     canvas.style.width = '100%';
     canvas.style.height = '100%';
 
-    const context = canvas.getContext('2d');
+    const contexto = canvas.getContext('2d');
 
-    await page.render({
-        canvasContext: context,
+    await pagina.render({
+        canvasContext: contexto,
         viewport,
         background: '#ffffff'
     }).promise;
 
-    page.cleanup();
+    pagina.cleanup();
 }
 
 /*
  * Garante que as páginas ao redor da posição atual estejam desenhadas
  * e libera a memória das páginas que ficaram muito longe.
  */
-async function ensurePages(center) {
-    const pdf = state.pdf;
+async function garantirPaginas(centro) {
+    const pdf = estado.pdf;
     if (!pdf) return;
 
-    const token = ++state.renderToken;
-    const last = state.totalPages - 1;
-    const from = Math.max(0, center - 2);
-    const to = Math.min(last, center + 5);
+    const token = ++estado.tokenRenderizacao;
+    const ultima = estado.totalPaginas - 1;
+    const de = Math.max(0, centro - 2);
+    const ate = Math.min(ultima, centro + 5);
 
-    state.renderedPages.forEach((container, i) => {
-        if (state.pageStates[i] === 'done' &&
-            (i < center - 6 || i > center + 9)) {
-            const canvas = container.querySelector('canvas');
+    estado.paginasRenderizadas.forEach((conteiner, i) => {
+        if (estado.estadosPaginas[i] === 'pronto' &&
+            (i < centro - 6 || i > centro + 9)) {
+            const canvas = conteiner.querySelector('canvas');
             canvas.width = 1;
             canvas.height = 1;
-            state.pageStates[i] = null;
+            estado.estadosPaginas[i] = null;
         }
     });
 
-    const order = [];
-    for (let i = from; i <= to; i++) order.push(i);
-    order.sort((a, b) => Math.abs(a - center) - Math.abs(b - center));
+    const ordem = [];
+    for (let i = de; i <= ate; i++) ordem.push(i);
+    ordem.sort((a, b) => Math.abs(a - centro) - Math.abs(b - centro));
 
-    for (const i of order) {
-        if (token !== state.renderToken || state.pdf !== pdf) return;
-        if (state.pageStates[i]) continue;
+    for (const i of ordem) {
+        if (token !== estado.tokenRenderizacao || estado.pdf !== pdf) return;
+        if (estado.estadosPaginas[i]) continue;
 
-        state.pageStates[i] = 'loading';
+        estado.estadosPaginas[i] = 'carregando';
 
         try {
-            const canvas = state.renderedPages[i].querySelector('canvas');
-            await renderPdfPage(i + 1, canvas, pdf);
-            state.pageStates[i] = state.pdf === pdf ? 'done' : null;
-        } catch (error) {
-            state.pageStates[i] = null;
-            console.error(`Erro ao renderizar a página ${i + 1}:`, error);
+            const canvas = estado.paginasRenderizadas[i].querySelector('canvas');
+            await renderizarPaginaPdf(i + 1, canvas, pdf);
+            estado.estadosPaginas[i] = estado.pdf === pdf ? 'pronto' : null;
+        } catch (erro) {
+            estado.estadosPaginas[i] = null;
+            console.error(`Erro ao renderizar a página ${i + 1}:`, erro);
         }
     }
 }
 
-function createPageFlip() {
-    if (state.pageFlip) {
-        state.pageFlip.destroy();
+function criarPageFlip() {
+    if (estado.pageFlip) {
+        estado.pageFlip.destroy();
     }
 
-    state.pageFlip = new St.PageFlip(book, {
+    estado.pageFlip = new St.PageFlip(livro, {
         width: 601,
         height: 934,
         size: 'stretch',
@@ -609,46 +609,46 @@ function createPageFlip() {
         useMouseEvents: true
     });
 
-    state.pageFlip.loadFromHTML(
-        document.querySelectorAll('.book .page')
+    estado.pageFlip.loadFromHTML(
+        document.querySelectorAll('.livro .pagina')
     );
 
-    state.pageFlip.on('flip', (event) => {
-        updateCounter(event.data);
-        ensurePages(event.data);
-        playPageSound();
+    estado.pageFlip.on('flip', (evento) => {
+        atualizarContador(evento.data);
+        garantirPaginas(evento.data);
+        tocarSomPagina();
     });
 
-    updateCounter(0);
+    atualizarContador(0);
 }
 
-function updateCounter(index) {
-    if (!state.pageFlip) return;
+function atualizarContador(indice) {
+    if (!estado.pageFlip) return;
 
-    const current = typeof index === 'number'
-        ? index
-        : state.pageFlip.getCurrentPageIndex();
+    const atual = typeof indice === 'number'
+        ? indice
+        : estado.pageFlip.getCurrentPageIndex();
 
-    const first = current + 1;
-    const second = Math.min(current + 2, state.totalPages);
+    const primeira = atual + 1;
+    const segunda = Math.min(atual + 2, estado.totalPaginas);
 
-    if (state.totalPages === 1 || first === second) {
-        pageCounter.textContent = `${first} / ${state.totalPages}`;
+    if (estado.totalPaginas === 1 || primeira === segunda) {
+        contadorPaginas.textContent = `${primeira} / ${estado.totalPaginas}`;
     } else {
-        pageCounter.textContent =
-            `${first}–${second} / ${state.totalPages}`;
+        contadorPaginas.textContent =
+            `${primeira}–${segunda} / ${estado.totalPaginas}`;
     }
 }
 
-function goPrevious() {
-    if (state.pageFlip) {
-        state.pageFlip.flipPrev();
+function irParaAnterior() {
+    if (estado.pageFlip) {
+        estado.pageFlip.flipPrev();
     }
 }
 
-function goNext() {
-    if (state.pageFlip) {
-        state.pageFlip.flipNext();
+function irParaProxima() {
+    if (estado.pageFlip) {
+        estado.pageFlip.flipNext();
     }
 }
 
@@ -657,384 +657,384 @@ function goNext() {
  * Usamos uma cópia do áudio a cada toque para que viradas rápidas
  * não cortem o som anterior.
  */
-const PAGE_SOUNDS = [
+const SONS_PAGINA = [
     'som/virar_pagina.mp3',
     'som/virar_pagina_dois.mp3'
-].map(src => {
-    const audio = new Audio(src);
+].map(caminho => {
+    const audio = new Audio(caminho);
     audio.preload = 'auto';
     return audio;
 });
 
-let pageSoundIndex = 0;
+let indiceSomPagina = 0;
 
-function playPageSound() {
+function tocarSomPagina() {
     try {
-        const sound = PAGE_SOUNDS[pageSoundIndex].cloneNode();
-        pageSoundIndex = (pageSoundIndex + 1) % PAGE_SOUNDS.length;
+        const som = SONS_PAGINA[indiceSomPagina].cloneNode();
+        indiceSomPagina = (indiceSomPagina + 1) % SONS_PAGINA.length;
 
-        sound.volume = 0.8;
-        sound.play().catch(error => {
-            console.warn('Som de página indisponível:', error);
+        som.volume = 0.8;
+        som.play().catch(erro => {
+            console.warn('Som de página indisponível:', erro);
         });
-    } catch (error) {
-        console.warn('Som de página indisponível:', error);
+    } catch (erro) {
+        console.warn('Som de página indisponível:', erro);
     }
 }
 
-const PAGE_W = 601;
-const PAGE_H = 934;
-const MIN_ZOOM = .75;
-const MAX_ZOOM = 3;
+const LARGURA_PAGINA = 601;
+const ALTURA_PAGINA = 934;
+const ZOOM_MINIMO = .75;
+const ZOOM_MAXIMO = 3;
 
 /*
  * Impede que o livro saia do enquadramento: quando ele cabe na área de
  * leitura não há deslocamento (fica centralizado); quando está ampliado,
  * só permite mover até as bordas das páginas.
  */
-function clampPan() {
-    const stageWidth = bookStage.clientWidth;
-    const stageHeight = bookStage.clientHeight;
+function limitarDeslocamento() {
+    const larguraPalco = palcoLivro.clientWidth;
+    const alturaPalco = palcoLivro.clientHeight;
 
     // Tamanho real da dupla de páginas dentro do contêiner
-    const ratio = (2 * PAGE_W) / PAGE_H;
-    const contentHeight = Math.min(book.offsetHeight, book.offsetWidth / ratio);
-    const contentWidth = contentHeight * ratio;
+    const proporcao = (2 * LARGURA_PAGINA) / ALTURA_PAGINA;
+    const alturaConteudo = Math.min(livro.offsetHeight, livro.offsetWidth / proporcao);
+    const larguraConteudo = alturaConteudo * proporcao;
 
-    const maxPanX = Math.max(0, (contentWidth * state.zoom - stageWidth) / 2);
-    const maxPanY = Math.max(0, (contentHeight * state.zoom - stageHeight) / 2);
+    const maxDeslocX = Math.max(0, (larguraConteudo * estado.zoom - larguraPalco) / 2);
+    const maxDeslocY = Math.max(0, (alturaConteudo * estado.zoom - alturaPalco) / 2);
 
-    state.panX = Math.max(-maxPanX, Math.min(maxPanX, state.panX));
-    state.panY = Math.max(-maxPanY, Math.min(maxPanY, state.panY));
+    estado.deslocX = Math.max(-maxDeslocX, Math.min(maxDeslocX, estado.deslocX));
+    estado.deslocY = Math.max(-maxDeslocY, Math.min(maxDeslocY, estado.deslocY));
 }
 
-function applyTransform() {
-    clampPan();
+function aplicarTransformacao() {
+    limitarDeslocamento();
 
-    book.style.transform =
-        `translate(${state.panX}px, ${state.panY}px) scale(${state.zoom})`;
+    livro.style.transform =
+        `translate(${estado.deslocX}px, ${estado.deslocY}px) scale(${estado.zoom})`;
 
-    zoomValue.textContent = `${Math.round(state.zoom * 100)}%`;
+    valorZoom.textContent = `${Math.round(estado.zoom * 100)}%`;
 
     // Ampliado: arrastar move a página (não vira). Virar: setas/teclado.
-    const zoomed = state.zoom > 1.02;
-    book.style.pointerEvents = zoomed ? 'none' : '';
-    bookStage.classList.toggle('is-zoomed', zoomed);
+    const ampliado = estado.zoom > 1.02;
+    livro.style.pointerEvents = ampliado ? 'none' : '';
+    palcoLivro.classList.toggle('esta-ampliado', ampliado);
 }
 
-function setZoom(value, pointX = null, pointY = null) {
-    const oldZoom = state.zoom;
+function definirZoom(valor, pontoX = null, pontoY = null) {
+    const zoomAnterior = estado.zoom;
 
-    const newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, value));
-    const factor = newZoom / oldZoom;
+    const novoZoom = Math.max(ZOOM_MINIMO, Math.min(ZOOM_MAXIMO, valor));
+    const fator = novoZoom / zoomAnterior;
 
-    if (pointX !== null && pointY !== null) {
+    if (pontoX !== null && pontoY !== null) {
         // Zoom apontado: mantém o ponto sob o cursor/dedos no mesmo lugar
-        const rect = bookStage.getBoundingClientRect();
+        const retangulo = palcoLivro.getBoundingClientRect();
 
-        const relX = pointX - rect.left - rect.width / 2;
-        const relY = pointY - rect.top - rect.height / 2;
+        const relX = pontoX - retangulo.left - retangulo.width / 2;
+        const relY = pontoY - retangulo.top - retangulo.height / 2;
 
-        state.panX = relX - (relX - state.panX) * factor;
-        state.panY = relY - (relY - state.panY) * factor;
+        estado.deslocX = relX - (relX - estado.deslocX) * fator;
+        estado.deslocY = relY - (relY - estado.deslocY) * fator;
     } else {
         // Botões/teclado: amplia/reduz em torno do centro da tela
-        state.panX *= factor;
-        state.panY *= factor;
+        estado.deslocX *= fator;
+        estado.deslocY *= fator;
     }
 
-    state.zoom = newZoom;
-    applyTransform();
+    estado.zoom = novoZoom;
+    aplicarTransformacao();
 }
 
-function changeZoom(amount, mouseX = null, mouseY = null) {
-    setZoom(
-        state.zoom + amount,
+function alterarZoom(quantidade, mouseX = null, mouseY = null) {
+    definirZoom(
+        estado.zoom + quantidade,
         mouseX,
         mouseY
     );
 }
 
 /* Tela cheia da página inteira (equivale ao F11) */
-async function enterFullscreen() {
+async function entrarTelaCheia() {
     try {
-        const root = document.documentElement;
-        if (!document.fullscreenElement && root.requestFullscreen) {
-            await root.requestFullscreen();
+        const raiz = document.documentElement;
+        if (!document.fullscreenElement && raiz.requestFullscreen) {
+            await raiz.requestFullscreen();
         }
-    } catch (error) {
-        console.warn('Tela cheia não disponível:', error);
+    } catch (erro) {
+        console.warn('Tela cheia não disponível:', erro);
     }
 }
 
-async function toggleFullscreen() {
+async function alternarTelaCheia() {
     try {
         if (!document.fullscreenElement) {
             await document.documentElement.requestFullscreen();
         } else {
             await document.exitFullscreen();
         }
-    } catch (error) {
-        console.warn('Tela cheia não disponível:', error);
+    } catch (erro) {
+        console.warn('Tela cheia não disponível:', erro);
     }
 }
 
-function hideReader() {
-    readerModal.classList.remove('is-open');
-    readerModal.setAttribute('aria-hidden', 'true');
+function ocultarLeitor() {
+    modalLeitor.classList.remove('esta-aberto');
+    modalLeitor.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
 }
 
 /* Processos na ordem e com os filtros/pesquisa aplicados na landing page */
-function getNavIds() {
-    const ids = [...document.querySelectorAll('.process-card')]
-        .filter(card => card.style.display !== 'none')
-        .map(card => card.dataset.processId)
-        .filter(id => PROCESSES[id]);
+function obterIdsNavegacao() {
+    const ids = [...document.querySelectorAll('.cartao-processo')]
+        .filter(cartao => cartao.style.display !== 'none')
+        .map(cartao => cartao.dataset.idProcesso)
+        .filter(id => PROCESSOS[id]);
 
-    return ids.includes(state.currentId) ? ids : Object.keys(PROCESSES);
+    return ids.includes(estado.idAtual) ? ids : Object.keys(PROCESSOS);
 }
 
 /* Mostra o nome do processo anterior/próximo nos botões do topo */
-function updateProcessNav() {
-    const ids = getNavIds();
-    const index = ids.indexOf(state.currentId);
-    const prev = PROCESSES[ids[(index - 1 + ids.length) % ids.length]].title;
-    const next = PROCESSES[ids[(index + 1) % ids.length]].title;
+function atualizarNavegacaoProcessos() {
+    const ids = obterIdsNavegacao();
+    const indice = ids.indexOf(estado.idAtual);
+    const anterior = PROCESSOS[ids[(indice - 1 + ids.length) % ids.length]].titulo;
+    const proximo = PROCESSOS[ids[(indice + 1) % ids.length]].titulo;
 
     // Só um processo no filtro: não há para onde navegar
-    const visibility = ids.length > 1 ? '' : 'hidden';
-    document.getElementById('prevProcess').style.visibility = visibility;
-    document.getElementById('nextProcess').style.visibility = visibility;
+    const visibilidade = ids.length > 1 ? '' : 'hidden';
+    document.getElementById('processoAnterior').style.visibility = visibilidade;
+    document.getElementById('proximoProcesso').style.visibility = visibilidade;
 
-    document.getElementById('prevProcessLabel').textContent = prev;
-    document.getElementById('nextProcessLabel').textContent = next;
-    document.getElementById('prevProcess').title = prev;
-    document.getElementById('prevProcess').setAttribute('aria-label', prev);
-    document.getElementById('nextProcess').title = next;
-    document.getElementById('nextProcess').setAttribute('aria-label', next);
+    document.getElementById('rotuloProcessoAnterior').textContent = anterior;
+    document.getElementById('rotuloProximoProcesso').textContent = proximo;
+    document.getElementById('processoAnterior').title = anterior;
+    document.getElementById('processoAnterior').setAttribute('aria-label', anterior);
+    document.getElementById('proximoProcesso').title = proximo;
+    document.getElementById('proximoProcesso').setAttribute('aria-label', proximo);
 }
 
 /* X: fecha o leitor e volta para a prévia do mesmo processo */
-function closeReader() {
-    hideReader();
-    openPreview(state.currentId);
+function fecharLeitor() {
+    ocultarLeitor();
+    abrirPrevia(estado.idAtual);
 }
 
 /* Setas do topo: abre a prévia do processo anterior (-1) ou seguinte (+1) */
-function goToProcess(step) {
-    const ids = getNavIds();
-    const index = ids.indexOf(state.currentId);
-    const target = ids[(index + step + ids.length) % ids.length];
+function irParaProcesso(passo) {
+    const ids = obterIdsNavegacao();
+    const indice = ids.indexOf(estado.idAtual);
+    const alvo = ids[(indice + passo + ids.length) % ids.length];
 
-    hideReader();
-    openPreview(target);
+    ocultarLeitor();
+    abrirPrevia(alvo);
 }
 
 /* Filtro: ordem cronológica (ano lido do nº do processo) e tipo (1º título do card) */
-const filterState = { order: '', type: '' };
+const estadoFiltro = { ordem: '', tipo: '' };
 
-function getCardMeta(card) {
-    const type = (card.querySelector('.process-type')?.textContent || '').split('–')[0].trim();
-    const number = card.querySelector('.process-card-info p:not(.process-type)')?.textContent || '';
-    const match = number.match(/\/\s*(\d{2,4})/);
-    let year = match ? parseInt(match[1], 10) : null;
-    if (match && match[1].length === 2) year += 1900;
-    return { type, year };
+function obterMetaCartao(cartao) {
+    const tipo = (cartao.querySelector('.tipo-processo')?.textContent || '').split('–')[0].trim();
+    const numero = cartao.querySelector('.cartao-processo-info p:not(.tipo-processo)')?.textContent || '';
+    const correspondencia = numero.match(/\/\s*(\d{2,4})/);
+    let ano = correspondencia ? parseInt(correspondencia[1], 10) : null;
+    if (correspondencia && correspondencia[1].length === 2) ano += 1900;
+    return { tipo, ano };
 }
 
-function applyFilters() {
-    const grid = document.getElementById('processGrid');
-    const query = processSearch.value.trim().toLowerCase();
-    const cards = [...grid.querySelectorAll('.process-card')];
+function aplicarFiltros() {
+    const grade = document.getElementById('gradeProcessos');
+    const consulta = buscaProcesso.value.trim().toLowerCase();
+    const cartoes = [...grade.querySelectorAll('.cartao-processo')];
 
-    cards.sort((a, b) => {
-        const ya = a.dataset.year;
-        const yb = b.dataset.year;
+    cartoes.sort((a, b) => {
+        const anoA = a.dataset.ano;
+        const anoB = b.dataset.ano;
 
-        if (filterState.order) {
-            if (ya && yb && ya !== yb) return filterState.order === 'asc' ? ya - yb : yb - ya;
-            if (!ya !== !yb) return ya ? -1 : 1;
+        if (estadoFiltro.ordem) {
+            if (anoA && anoB && anoA !== anoB) return estadoFiltro.ordem === 'crescente' ? anoA - anoB : anoB - anoA;
+            if (!anoA !== !anoB) return anoA ? -1 : 1;
         }
-        return a.dataset.index - b.dataset.index;
+        return a.dataset.indice - b.dataset.indice;
     });
 
-    let visible = 0;
+    let visiveis = 0;
 
-    cards.forEach(card => {
-        grid.appendChild(card);
+    cartoes.forEach(cartao => {
+        grade.appendChild(cartao);
 
-        const matchName = card.dataset.processName.toLowerCase().includes(query);
-        const matchType = !filterState.type || card.dataset.type === filterState.type;
-        const match = matchName && matchType;
+        const correspondeNome = cartao.dataset.nomeProcesso.toLowerCase().includes(consulta);
+        const correspondeTipo = !estadoFiltro.tipo || cartao.dataset.tipo === estadoFiltro.tipo;
+        const correspondencia = correspondeNome && correspondeTipo;
 
-        card.style.display = match ? '' : 'none';
-        if (match) visible++;
+        cartao.style.display = correspondencia ? '' : 'none';
+        if (correspondencia) visiveis++;
     });
 
-    noResults.hidden = visible !== 0;
+    semResultados.hidden = visiveis !== 0;
 
-    document.querySelectorAll('.filter-option').forEach(option => {
-        const selected = option.dataset.order
-            ? option.dataset.order === filterState.order
-            : option.dataset.type === filterState.type;
-        option.classList.toggle('is-selected', selected);
+    document.querySelectorAll('.filtro-opcao').forEach(opcao => {
+        const selecionado = opcao.dataset.ordem
+            ? opcao.dataset.ordem === estadoFiltro.ordem
+            : opcao.dataset.tipo === estadoFiltro.tipo;
+        opcao.classList.toggle('esta-selecionado', selecionado);
     });
 
-    const active = Boolean(filterState.order || filterState.type);
-    document.getElementById('filterToggle').classList.toggle('is-active', active);
-    document.getElementById('filterClear').hidden = !active;
+    const ativo = Boolean(estadoFiltro.ordem || estadoFiltro.tipo);
+    document.getElementById('alternarFiltro').classList.toggle('esta-ativo', ativo);
+    document.getElementById('limparFiltro').hidden = !ativo;
 }
 
-function setupSearch() {
-    processSearch.addEventListener('input', applyFilters);
+function configurarBusca() {
+    buscaProcesso.addEventListener('input', aplicarFiltros);
 }
 
-function setupFilter() {
-    const toggle = document.getElementById('filterToggle');
-    const menu = document.getElementById('filterMenu');
-    const typeBox = document.getElementById('filterTypeOptions');
-    const cards = [...document.querySelectorAll('.process-card')];
+function configurarFiltro() {
+    const alternador = document.getElementById('alternarFiltro');
+    const menu = document.getElementById('menuFiltro');
+    const caixaTipos = document.getElementById('opcoesTipoFiltro');
+    const cartoes = [...document.querySelectorAll('.cartao-processo')];
 
-    cards.forEach((card, index) => {
-        const { type, year } = getCardMeta(card);
-        card.dataset.index = index;
-        card.dataset.type = type;
-        if (year) card.dataset.year = year;
+    cartoes.forEach((cartao, indice) => {
+        const { tipo, ano } = obterMetaCartao(cartao);
+        cartao.dataset.indice = indice;
+        cartao.dataset.tipo = tipo;
+        if (ano) cartao.dataset.ano = ano;
     });
 
-    [...new Set(cards.map(card => card.dataset.type).filter(Boolean))].forEach(type => {
-        const option = document.createElement('button');
-        option.type = 'button';
-        option.className = 'filter-option';
-        option.dataset.type = type;
-        option.textContent = type;
-        typeBox.appendChild(option);
+    [...new Set(cartoes.map(cartao => cartao.dataset.tipo).filter(Boolean))].forEach(tipo => {
+        const opcao = document.createElement('button');
+        opcao.type = 'button';
+        opcao.className = 'filtro-opcao';
+        opcao.dataset.tipo = tipo;
+        opcao.textContent = tipo;
+        caixaTipos.appendChild(opcao);
     });
 
-    const closeMenu = () => {
+    const fecharMenu = () => {
         menu.hidden = true;
-        toggle.setAttribute('aria-expanded', 'false');
+        alternador.setAttribute('aria-expanded', 'false');
     };
 
-    toggle.addEventListener('click', event => {
-        event.stopPropagation();
+    alternador.addEventListener('click', evento => {
+        evento.stopPropagation();
         menu.hidden = !menu.hidden;
-        toggle.setAttribute('aria-expanded', String(!menu.hidden));
+        alternador.setAttribute('aria-expanded', String(!menu.hidden));
     });
 
-    document.addEventListener('click', closeMenu);
-    document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') closeMenu();
+    document.addEventListener('click', fecharMenu);
+    document.addEventListener('keydown', evento => {
+        if (evento.key === 'Escape') fecharMenu();
     });
 
-    menu.addEventListener('click', event => {
-        event.stopPropagation();
+    menu.addEventListener('click', evento => {
+        evento.stopPropagation();
 
-        const topic = event.target.closest('.filter-topic');
-        if (topic) {
-            const options = topic.nextElementSibling;
-            options.hidden = !options.hidden;
-            topic.setAttribute('aria-expanded', String(!options.hidden));
+        const topico = evento.target.closest('.filtro-topico');
+        if (topico) {
+            const opcoes = topico.nextElementSibling;
+            opcoes.hidden = !opcoes.hidden;
+            topico.setAttribute('aria-expanded', String(!opcoes.hidden));
             return;
         }
 
-        const option = event.target.closest('.filter-option');
-        if (!option) return;
+        const opcao = evento.target.closest('.filtro-opcao');
+        if (!opcao) return;
 
-        if (option.dataset.order) {
-            filterState.order = filterState.order === option.dataset.order ? '' : option.dataset.order;
+        if (opcao.dataset.ordem) {
+            estadoFiltro.ordem = estadoFiltro.ordem === opcao.dataset.ordem ? '' : opcao.dataset.ordem;
         } else {
-            filterState.type = filterState.type === option.dataset.type ? '' : option.dataset.type;
+            estadoFiltro.tipo = estadoFiltro.tipo === opcao.dataset.tipo ? '' : opcao.dataset.tipo;
         }
-        applyFilters();
+        aplicarFiltros();
     });
 
-    document.getElementById('filterClear').addEventListener('click', () => {
-        filterState.order = '';
-        filterState.type = '';
-        applyFilters();
+    document.getElementById('limparFiltro').addEventListener('click', () => {
+        estadoFiltro.ordem = '';
+        estadoFiltro.tipo = '';
+        aplicarFiltros();
     });
 }
 
-function setupEvents() {
-    document.querySelectorAll('.process-card').forEach(card => {
-        card.querySelector('.process-card-button')
-            .addEventListener('click', () => openPreview(card.dataset.processId));
+function configurarEventos() {
+    document.querySelectorAll('.cartao-processo').forEach(cartao => {
+        cartao.querySelector('.cartao-processo-botao')
+            .addEventListener('click', () => abrirPrevia(cartao.dataset.idProcesso));
     });
 
-    document.getElementById('closePreview')
-        .addEventListener('click', closePreview);
+    document.getElementById('fecharPrevia')
+        .addEventListener('click', fecharPrevia);
 
-    document.querySelector('[data-close="preview"]')
-        .addEventListener('click', closePreview);
+    document.querySelector('[data-fechar="previa"]')
+        .addEventListener('click', fecharPrevia);
 
-    document.getElementById('openBook')
-        .addEventListener('click', openBook);
+    document.getElementById('abrirLivro')
+        .addEventListener('click', abrirLivro);
 
-    document.getElementById('closeReader')
-        .addEventListener('click', closeReader);
+    document.getElementById('fecharLeitor')
+        .addEventListener('click', fecharLeitor);
 
-    document.getElementById('goHome')
-        .addEventListener('click', hideReader);
+    document.getElementById('irParaInicio')
+        .addEventListener('click', ocultarLeitor);
 
-    document.getElementById('prevProcess')
-        .addEventListener('click', () => goToProcess(-1));
+    document.getElementById('processoAnterior')
+        .addEventListener('click', () => irParaProcesso(-1));
 
-    document.getElementById('nextProcess')
-        .addEventListener('click', () => goToProcess(1));
+    document.getElementById('proximoProcesso')
+        .addEventListener('click', () => irParaProcesso(1));
 
-    document.getElementById('previousPage')
-        .addEventListener('click', goPrevious);
+    document.getElementById('paginaAnterior')
+        .addEventListener('click', irParaAnterior);
 
-    document.getElementById('nextPage')
-        .addEventListener('click', goNext);
+    document.getElementById('proximaPagina')
+        .addEventListener('click', irParaProxima);
 
-    document.getElementById('zoomOut')
-        .addEventListener('click', () => changeZoom(-.15));
+    document.getElementById('diminuirZoom')
+        .addEventListener('click', () => alterarZoom(-.15));
 
-    document.getElementById('zoomIn')
-        .addEventListener('click', () => changeZoom(.15));
+    document.getElementById('aumentarZoom')
+        .addEventListener('click', () => alterarZoom(.15));
 
-    const fullscreenButton = document.getElementById('pageFullscreen');
+    const botaoTelaCheia = document.getElementById('telaCheiaPagina');
     if (document.documentElement.requestFullscreen) {
-        fullscreenButton.addEventListener('click', toggleFullscreen);
+        botaoTelaCheia.addEventListener('click', alternarTelaCheia);
     } else {
-        fullscreenButton.hidden = true;
+        botaoTelaCheia.hidden = true;
     }
 
-    processSearch.addEventListener('keydown', event => {
-        if (event.key === 'Escape') {
-            processSearch.value = '';
-            processSearch.dispatchEvent(new Event('input'));
+    buscaProcesso.addEventListener('keydown', evento => {
+        if (evento.key === 'Escape') {
+            buscaProcesso.value = '';
+            buscaProcesso.dispatchEvent(new Event('input'));
         }
     });
 
-    document.addEventListener('keydown', event => {
-        if (!readerModal.classList.contains('is-open')) return;
+    document.addEventListener('keydown', evento => {
+        if (!modalLeitor.classList.contains('esta-aberto')) return;
 
-        if (event.key === 'ArrowLeft') goPrevious();
-        if (event.key === 'ArrowRight') goNext();
-        if (event.key === 'Escape') closeReader();
-        if (event.key === '+' || event.key === '=') changeZoom(.15);
-        if (event.key === '-') changeZoom(-.15);
+        if (evento.key === 'ArrowLeft') irParaAnterior();
+        if (evento.key === 'ArrowRight') irParaProxima();
+        if (evento.key === 'Escape') fecharLeitor();
+        if (evento.key === '+' || evento.key === '=') alterarZoom(.15);
+        if (evento.key === '-') alterarZoom(-.15);
     });
 
     /*
      * Scroll do mouse para zoom.
      * No touch, o PageFlip utiliza o gesto de arrastar/swipe.
      */
-    bookStage.addEventListener('wheel', event => {
-        if (!readerModal.classList.contains('is-open')) return;
+    palcoLivro.addEventListener('wheel', evento => {
+        if (!modalLeitor.classList.contains('esta-aberto')) return;
 
-        event.preventDefault();
+        evento.preventDefault();
 
-        const zoomAmount = event.deltaY < 0 ? 0.1 : -0.1;
+        const quantidadeZoom = evento.deltaY < 0 ? 0.1 : -0.1;
 
-        changeZoom(
-            zoomAmount,
-            event.clientX,
-            event.clientY
+        alterarZoom(
+            quantidadeZoom,
+            evento.clientX,
+            evento.clientY
         );
 }, { passive: false });
 }
@@ -1047,281 +1047,281 @@ function setupEvents() {
  * Mouse: arrastar com zoom = mover a página (sem zoom o PageFlip vira
  * a página arrastando, como antes).
  */
-function setupReaderGestures() {
-    const touch = {
-        mode: null, startX: 0, startY: 0, panX: 0, panY: 0,
-        dist: 0, zoom: 1, midX: 0, midY: 0, wasPinch: false,
-        flipping: false, target: null, lastX: 0, lastY: 0
+function configurarGestosLeitor() {
+    const toque = {
+        modo: null, inicioX: 0, inicioY: 0, deslocX: 0, deslocY: 0,
+        distInicial: 0, zoom: 1, medioX: 0, medioY: 0, foiPinca: false,
+        virando: false, alvo: null, ultimoX: 0, ultimoY: 0
     };
 
     // Reproduz o mouse para o PageFlip (ele já faz o efeito de folhear)
-    function fireMouse(type, x, y) {
-        let target = touch.target;
-        if (!target || !book.contains(target)) {
-            target = book.querySelector('.stf__wrapper') || book;
+    function dispararMouse(tipo, x, y) {
+        let alvo = toque.alvo;
+        if (!alvo || !livro.contains(alvo)) {
+            alvo = livro.querySelector('.stf__wrapper') || livro;
         }
-        target.dispatchEvent(new MouseEvent(type, {
+        alvo.dispatchEvent(new MouseEvent(tipo, {
             bubbles: true, cancelable: true, view: window, button: 0,
-            buttons: type === 'mouseup' ? 0 : 1, clientX: x, clientY: y
+            buttons: tipo === 'mouseup' ? 0 : 1, clientX: x, clientY: y
         }));
     }
 
-    const distance = t => Math.hypot(
+    const distancia = t => Math.hypot(
         t[0].clientX - t[1].clientX,
         t[0].clientY - t[1].clientY
     );
-    const midpoint = t => ({
+    const pontoMedio = t => ({
         x: (t[0].clientX + t[1].clientX) / 2,
         y: (t[0].clientY + t[1].clientY) / 2
     });
 
-    function startSingle(t) {
-        touch.mode = 'single';
-        touch.flipping = false;
-        touch.target = t.target;
-        touch.startX = t.clientX;
-        touch.startY = t.clientY;
-        touch.panX = state.panX;
-        touch.panY = state.panY;
+    function iniciarUmDedo(t) {
+        toque.modo = 'umDedo';
+        toque.virando = false;
+        toque.alvo = t.target;
+        toque.inicioX = t.clientX;
+        toque.inicioY = t.clientY;
+        toque.deslocX = estado.deslocX;
+        toque.deslocY = estado.deslocY;
     }
 
-    function onTouchStart(event) {
-        if (!readerModal.classList.contains('is-open')) return;
+    function aoIniciarToque(evento) {
+        if (!modalLeitor.classList.contains('esta-aberto')) return;
 
         // Impede o PageFlip e o navegador de tratarem este toque
-        event.preventDefault();
-        event.stopPropagation();
+        evento.preventDefault();
+        evento.stopPropagation();
 
-        bookStage.classList.add('is-gesturing');
+        palcoLivro.classList.add('esta-gesticulando');
 
-        const t = event.touches;
+        const t = evento.touches;
 
         if (t.length >= 2) {
             // Segundo dedo: encerra o arrasto de página que estava em andamento
-            if (touch.flipping) {
-                fireMouse('mouseup', touch.lastX, touch.lastY);
-                touch.flipping = false;
+            if (toque.virando) {
+                dispararMouse('mouseup', toque.ultimoX, toque.ultimoY);
+                toque.virando = false;
             }
 
-            const mid = midpoint(t);
-            touch.mode = 'pinch';
-            touch.wasPinch = true;
-            touch.dist = distance(t);
-            touch.zoom = state.zoom;
-            touch.midX = mid.x;
-            touch.midY = mid.y;
+            const medio = pontoMedio(t);
+            toque.modo = 'pinca';
+            toque.foiPinca = true;
+            toque.distInicial = distancia(t);
+            toque.zoom = estado.zoom;
+            toque.medioX = medio.x;
+            toque.medioY = medio.y;
         } else {
-            touch.wasPinch = false;
-            startSingle(t[0]);
+            toque.foiPinca = false;
+            iniciarUmDedo(t[0]);
         }
     }
 
-    function onTouchMove(event) {
-        if (!touch.mode) return;
+    function aoMoverToque(evento) {
+        if (!toque.modo) return;
 
-        event.preventDefault();
-        event.stopPropagation();
+        evento.preventDefault();
+        evento.stopPropagation();
 
-        const t = event.touches;
+        const t = evento.touches;
 
-        if (touch.mode === 'pinch' && t.length >= 2) {
-            const mid = midpoint(t);
+        if (toque.modo === 'pinca' && t.length >= 2) {
+            const medio = pontoMedio(t);
 
-            setZoom(touch.zoom * (distance(t) / touch.dist), mid.x, mid.y);
+            definirZoom(toque.zoom * (distancia(t) / toque.distInicial), medio.x, medio.y);
 
             // Acompanha o movimento dos dedos durante a pinça
-            state.panX += mid.x - touch.midX;
-            state.panY += mid.y - touch.midY;
-            touch.midX = mid.x;
-            touch.midY = mid.y;
-            applyTransform();
-        } else if (touch.mode === 'single' && t.length === 1 && state.zoom > 1.02) {
-            state.panX = touch.panX + (t[0].clientX - touch.startX);
-            state.panY = touch.panY + (t[0].clientY - touch.startY);
-            applyTransform();
-        } else if (touch.mode === 'single' && t.length === 1 && !touch.wasPinch) {
+            estado.deslocX += medio.x - toque.medioX;
+            estado.deslocY += medio.y - toque.medioY;
+            toque.medioX = medio.x;
+            toque.medioY = medio.y;
+            aplicarTransformacao();
+        } else if (toque.modo === 'umDedo' && t.length === 1 && estado.zoom > 1.02) {
+            estado.deslocX = toque.deslocX + (t[0].clientX - toque.inicioX);
+            estado.deslocY = toque.deslocY + (t[0].clientY - toque.inicioY);
+            aplicarTransformacao();
+        } else if (toque.modo === 'umDedo' && t.length === 1 && !toque.foiPinca) {
             // Sem zoom: o dedo arrasta a página como o mouse
             const x = t[0].clientX;
             const y = t[0].clientY;
 
-            if (!touch.flipping) {
-                if (Math.hypot(x - touch.startX, y - touch.startY) < 6) return;
-                touch.flipping = true;
-                fireMouse('mousedown', touch.startX, touch.startY);
+            if (!toque.virando) {
+                if (Math.hypot(x - toque.inicioX, y - toque.inicioY) < 6) return;
+                toque.virando = true;
+                dispararMouse('mousedown', toque.inicioX, toque.inicioY);
             }
 
-            touch.lastX = x;
-            touch.lastY = y;
-            fireMouse('mousemove', x, y);
+            toque.ultimoX = x;
+            toque.ultimoY = y;
+            dispararMouse('mousemove', x, y);
         }
     }
 
-    function onTouchEnd(event) {
-        if (!touch.mode) return;
+    function aoFinalizarToque(evento) {
+        if (!toque.modo) return;
 
-        event.preventDefault();
-        event.stopPropagation();
+        evento.preventDefault();
+        evento.stopPropagation();
 
-        const remaining = event.touches;
+        const restantes = evento.touches;
 
         // Soltou o dedo: o PageFlip decide se a página vira ou volta
-        if (touch.flipping && event.changedTouches.length) {
-            const c = event.changedTouches[0];
-            fireMouse('mouseup', c.clientX, c.clientY);
-            touch.flipping = false;
+        if (toque.virando && evento.changedTouches.length) {
+            const c = evento.changedTouches[0];
+            dispararMouse('mouseup', c.clientX, c.clientY);
+            toque.virando = false;
         }
 
-        if (remaining.length === 0) {
-            touch.mode = null;
-            bookStage.classList.remove('is-gesturing');
+        if (restantes.length === 0) {
+            toque.modo = null;
+            palcoLivro.classList.remove('esta-gesticulando');
 
             // Perto de 100%: volta exatamente a 100%, centralizado
-            if (Math.abs(state.zoom - 1) < .05) {
-                setZoom(1);
+            if (Math.abs(estado.zoom - 1) < .05) {
+                definirZoom(1);
             }
-        } else if (remaining.length === 1) {
+        } else if (restantes.length === 1) {
             // Soltou um dos dedos da pinça: continua movendo com o outro
-            startSingle(remaining[0]);
+            iniciarUmDedo(restantes[0]);
         }
     }
 
-    const options = { passive: false, capture: true };
-    bookStage.addEventListener('touchstart', onTouchStart, options);
-    bookStage.addEventListener('touchmove', onTouchMove, options);
-    bookStage.addEventListener('touchend', onTouchEnd, options);
-    bookStage.addEventListener('touchcancel', onTouchEnd, options);
+    const opcoes = { passive: false, capture: true };
+    palcoLivro.addEventListener('touchstart', aoIniciarToque, opcoes);
+    palcoLivro.addEventListener('touchmove', aoMoverToque, opcoes);
+    palcoLivro.addEventListener('touchend', aoFinalizarToque, opcoes);
+    palcoLivro.addEventListener('touchcancel', aoFinalizarToque, opcoes);
 
     // Mouse: arrastar para mover a página ampliada
-    let mousePan = null;
+    let arrasteMouse = null;
 
-    bookStage.addEventListener('pointerdown', event => {
-        if (event.pointerType !== 'mouse' || event.button !== 0) return;
-        if (state.zoom <= 1.02) return;
+    palcoLivro.addEventListener('pointerdown', evento => {
+        if (evento.pointerType !== 'mouse' || evento.button !== 0) return;
+        if (estado.zoom <= 1.02) return;
 
-        mousePan = {
-            x: event.clientX,
-            y: event.clientY,
-            panX: state.panX,
-            panY: state.panY
+        arrasteMouse = {
+            x: evento.clientX,
+            y: evento.clientY,
+            deslocX: estado.deslocX,
+            deslocY: estado.deslocY
         };
 
-        bookStage.setPointerCapture(event.pointerId);
-        bookStage.classList.add('is-gesturing');
+        palcoLivro.setPointerCapture(evento.pointerId);
+        palcoLivro.classList.add('esta-gesticulando');
     });
 
-    bookStage.addEventListener('pointermove', event => {
-        if (!mousePan) return;
+    palcoLivro.addEventListener('pointermove', evento => {
+        if (!arrasteMouse) return;
 
-        state.panX = mousePan.panX + (event.clientX - mousePan.x);
-        state.panY = mousePan.panY + (event.clientY - mousePan.y);
-        applyTransform();
+        estado.deslocX = arrasteMouse.deslocX + (evento.clientX - arrasteMouse.x);
+        estado.deslocY = arrasteMouse.deslocY + (evento.clientY - arrasteMouse.y);
+        aplicarTransformacao();
     });
 
-    const endMousePan = () => {
-        mousePan = null;
-        bookStage.classList.remove('is-gesturing');
+    const terminarArrasteMouse = () => {
+        arrasteMouse = null;
+        palcoLivro.classList.remove('esta-gesticulando');
     };
 
-    bookStage.addEventListener('pointerup', endMousePan);
-    bookStage.addEventListener('pointercancel', endMousePan);
+    palcoLivro.addEventListener('pointerup', terminarArrasteMouse);
+    palcoLivro.addEventListener('pointercancel', terminarArrasteMouse);
 }
 
-/* Cria os cards da tela inicial a partir de PROCESSES */
-function renderCards() {
-    const grid = document.getElementById('processGrid');
-    grid.innerHTML = '';
+/* Cria os cards da tela inicial a partir de PROCESSOS */
+function renderizarCartoes() {
+    const grade = document.getElementById('gradeProcessos');
+    grade.innerHTML = '';
 
-    Object.entries(PROCESSES).forEach(([id, proc]) => {
-        const { card } = proc;
+    Object.entries(PROCESSOS).forEach(([id, processo]) => {
+        const { cartao } = processo;
 
-        const article = document.createElement('article');
-        article.className = 'process-card';
-        article.dataset.processName = card.name;
-        article.dataset.processId = id;
+        const artigo = document.createElement('article');
+        artigo.className = 'cartao-processo';
+        artigo.dataset.nomeProcesso = cartao.nome;
+        artigo.dataset.idProcesso = id;
 
-        article.innerHTML = `
-            <button class="process-card-button" type="button">
-                <div class="process-thumbnail-wrap">
-                    <img class="process-thumbnail" alt="">
-                    <div class="open-overlay">ABRIR PROCESSO</div>
+        artigo.innerHTML = `
+            <button class="cartao-processo-botao" type="button">
+                <div class="miniatura-processo-envoltorio">
+                    <img class="miniatura-processo" alt="">
+                    <div class="sobreposicao-abrir">ABRIR PROCESSO</div>
                 </div>
 
-                <div class="process-card-info">
-                    <p class="process-type"></p>
+                <div class="cartao-processo-info">
+                    <p class="tipo-processo"></p>
                     <h3></h3>
                     <p></p>
                 </div>
             </button>`;
 
-        const image = article.querySelector('.process-thumbnail');
-        image.src = card.thumbnail;
-        image.alt = card.alt;
+        const imagem = artigo.querySelector('.miniatura-processo');
+        imagem.src = cartao.miniatura;
+        imagem.alt = cartao.alt;
 
-        article.querySelector('.process-type').textContent = card.type;
-        article.querySelector('h3').textContent = card.heading;
-        article.querySelector('.process-card-info p:last-child').textContent = card.number;
+        artigo.querySelector('.tipo-processo').textContent = cartao.tipo;
+        artigo.querySelector('h3').textContent = cartao.cabecalho;
+        artigo.querySelector('.cartao-processo-info p:last-child').textContent = cartao.numero;
 
-        grid.appendChild(article);
+        grade.appendChild(artigo);
     });
 }
 
 /* Volta ao estado inicial: fecha prévia/leitor, limpa busca e filtros, libera memória */
-function resetToHome() {
-    hideReader();
-    closePreview();
+function voltarAoInicio() {
+    ocultarLeitor();
+    fecharPrevia();
 
-    document.getElementById('filterMenu').hidden = true;
-    document.getElementById('filterToggle').setAttribute('aria-expanded', 'false');
+    document.getElementById('menuFiltro').hidden = true;
+    document.getElementById('alternarFiltro').setAttribute('aria-expanded', 'false');
 
-    processSearch.value = '';
-    filterState.order = '';
-    filterState.type = '';
-    applyFilters();
+    buscaProcesso.value = '';
+    estadoFiltro.ordem = '';
+    estadoFiltro.tipo = '';
+    aplicarFiltros();
 
-    disposeBook();
-    state.currentId = null;
+    descartarLivro();
+    estado.idAtual = null;
 
     window.scrollTo(0, 0);
 }
 
 /* Quiosque: depois de um tempo sem uso, prepara a tela para o próximo visitante */
-function setupIdleReset() {
-    if (!IDLE_TIMEOUT_MS) return;
+function configurarRedefinicaoOciosidade() {
+    if (!TEMPO_OCIOSO_MS) return;
 
-    let timer = null;
-    let lastActivity = 0;
+    let temporizador = null;
+    let ultimaAtividade = 0;
 
-    const somethingToReset = () =>
-        previewModal.classList.contains('is-open') ||
-        readerModal.classList.contains('is-open') ||
-        processSearch.value !== '' ||
-        filterState.order !== '' ||
-        filterState.type !== '' ||
+    const algoParaRedefinir = () =>
+        modalPrevia.classList.contains('esta-aberto') ||
+        modalLeitor.classList.contains('esta-aberto') ||
+        buscaProcesso.value !== '' ||
+        estadoFiltro.ordem !== '' ||
+        estadoFiltro.tipo !== '' ||
         window.scrollY > 0;
 
-    const schedule = () => {
-        const now = Date.now();
-        if (timer && now - lastActivity < 1000) return;   // evita reagendar a cada pixel
-        lastActivity = now;
+    const agendar = () => {
+        const agora = Date.now();
+        if (temporizador && agora - ultimaAtividade < 1000) return;   // evita reagendar a cada pixel
+        ultimaAtividade = agora;
 
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            if (somethingToReset()) resetToHome();
-        }, IDLE_TIMEOUT_MS);
+        clearTimeout(temporizador);
+        temporizador = setTimeout(() => {
+            if (algoParaRedefinir()) voltarAoInicio();
+        }, TEMPO_OCIOSO_MS);
     };
 
     // Captura: enxerga também os toques que o leitor interrompe (stopPropagation)
-    ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart'].forEach(type => {
-        document.addEventListener(type, schedule, { passive: true, capture: true });
+    ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart'].forEach(tipo => {
+        document.addEventListener(tipo, agendar, { passive: true, capture: true });
     });
 
-    schedule();
+    agendar();
 }
 
-renderCards();
-setupSearch();
-setupFilter();
-setupEvents();
-setupPreviewZoom();
-setupReaderGestures();
-setupIdleReset();
+renderizarCartoes();
+configurarBusca();
+configurarFiltro();
+configurarEventos();
+configurarZoomPrevia();
+configurarGestosLeitor();
+configurarRedefinicaoOciosidade();
