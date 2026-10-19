@@ -36,7 +36,7 @@ const PROCESSOS = {
             alt: "Caso Ana Lídia",
             tipo: "AÇÃO PENAL",
             cabecalho: "Caso Ana Lídia",
-            numero: "Processo nº A0001948/1985 (00000549/74)"
+            numero: "Processo nº A0001948/1985 (00000549/1974)"
         }
     },
     'oscar-niemeyer': {
@@ -62,7 +62,7 @@ const PROCESSOS = {
             alt: "Dois Candangos",
             tipo: "ACIDENTE DE TRABALHO – 3/4/1962",
             cabecalho: "Dois Candangos",
-            numero: "Processo nº S3066/62"
+            numero: "Processo nº S3066/1962"
         }
     },
     'caixa-dagua': {
@@ -75,7 +75,7 @@ const PROCESSOS = {
             alt: "Caso Caixa d'Água",
             tipo: "AÇÃO POPULAR",
             cabecalho: "Demolição da Caixa d'Água de Taguatinga",
-            numero: "Processo nº 15.429/1981 e 2.185/1981"
+            numero: "Processo nº 15429/1981 - 2185/1981"
         }
     },
     'crime-passional': {
@@ -114,7 +114,7 @@ const PROCESSOS = {
             alt: "Darcy Ribeiro",
             tipo: "QUEIXA-CRIME (AÇÃO PENAL PRIVADA)",
             cabecalho: "Caso Darcy Ribeiro",
-            numero: "Processo nº 23278/80"
+            numero: "Processo nº 23278/1980"
         }
     },
     'roubo-diamante': {
@@ -127,7 +127,85 @@ const PROCESSOS = {
             alt: "Roubo do Diamante",
             tipo: "AÇÃO PENAL",
             cabecalho: "Pressuposto Roubo do Diamante 007 em 1965",
-            numero: "Processo nº 1734/66 - S001736/84"
+            numero: "Processo nº 1734/1966 - S001736/1984"
+        }
+    },
+    'silvio-hollembach': {
+        titulo: 'Caso Silvio Hollembach',
+        pdf: 'processos/Processo_Silvio_Hollembach.pdf',
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_caso_silvio_hollembach.pdf',
+        cartao: {
+            nome: "Caso Silvio Hollembach",
+            miniatura: "img/logo_silvio_hollembach.jpg",
+            alt: "Caso Silvio Hollembach",
+            tipo: "INQUÉRITO POLICIAL",
+            cabecalho: "Caso Silvio Hollembach",
+            numero: "Processo nº 941/1978"
+        }
+    },
+    'primeiro-divorcio': {
+        titulo: 'Um dos Primeiros Divórcios na Nova Capital',
+        pdf: 'processos/Processo_Primeiro_Divorcio.pdf',
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_primeiro_divorcio_-2.pdf',
+        cartao: {
+            nome: "Um dos Primeiros Divórcios na Nova Capital",
+            miniatura: "img/logo_primeiro_divorcio.jpg",
+            alt: "Um dos Primeiros Divórcios na Nova Capital",
+            tipo: "AÇÃO DE DIVÓRCIO",
+            cabecalho: "Um dos Primeiros Divórcios na Nova Capital",
+            numero: "Processo nº 3269/1978"
+        }
+    },
+    'inventario-jk': {
+        titulo: 'Inventário Juscelino Kubitschek',
+        pdf: 'processos/Processo_Inventário_JK.pdf',
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_inventario_juscelino.pdf',
+        cartao: {
+            nome: "Inventário Juscelino Kubitschek",
+            miniatura: "img/logo_inventario_jk.jpg",
+            alt: "Inventário Juscelino Kubitschek",
+            tipo: "TESTAMENTO",
+            cabecalho: "Inventário Juscelino Kubitschek",
+            numero: "Processo nº 2390/1976 - S13258/1980"
+        }
+    },
+    'golbery': {
+        titulo: 'Inventário Golbery do Couto e Silva',
+        pdf: 'processos/Processo_Golbery.pdf',
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_Golbery.pdf',
+        cartao: {
+            nome: "Inventário Golbery do Couto e Silva",
+            miniatura: "img/logo_golbery.jpg",
+            alt: "Inventário Golbery do Couto e Silva",
+            tipo: "TESTAMENTO",
+            cabecalho: "Inventário Golbery do Couto e Silva",
+            numero: "Processo nº 34493/1987 - 98240/1987"
+        }
+    },
+    'ceilandia': {
+        titulo: 'Os Incansáveis Moradores da Ceilândia',
+        pdf: 'processos/Processo_Ceilândia.pdf',
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_moradores_ceilandia.pdf',
+        cartao: {
+            nome: "Os Incansáveis Moradores da Ceilândia",
+            miniatura: "img/logo_ceilandia.jpg",
+            alt: "Os Incansáveis Moradores da Ceilândia",
+            tipo: "AÇÃO DE OBRIGAÇÃO A FAZER",
+            cabecalho: "Os Incansáveis Moradores da Ceilândia",
+            numero: "Processo nº 9832/1980"
+        }
+    },
+    'indio-galdino': {
+        titulo: 'Caso Índio Galdino',
+        pdf: 'processos/Processo_Índio_Galdino.pdf',
+        previa: 'previa_processos/PROCESSOS_HISTORICOS_caso_indio_galdino.pdf',
+        cartao: {
+            nome: "Caso Índio Galdino",
+            miniatura: "img/logo_indio_galdino.jpg",
+            alt: "Caso Índio Galdino",
+            tipo: "AÇÃO PENAL",
+            cabecalho: "Caso Índio Galdino",
+            numero: "Processo nº 17901/1997"
         }
     }
 };
