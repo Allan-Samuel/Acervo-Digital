@@ -1396,7 +1396,26 @@ function configurarRedefinicaoOciosidade() {
     agendar();
 }
 
+/* Relógio digital da tela inicial (horas e minutos, atualizado sozinho) */
+function configurarRelogio() {
+    const relogio = document.getElementById('relogio');
+    if (!relogio) return;
+
+    const atualizar = () => {
+        const agora = new Date();
+        const texto = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', hour12: false });
+        if (relogio.textContent !== texto) {
+            relogio.textContent = texto;
+            relogio.setAttribute('datetime', agora.toTimeString().slice(0, 5));
+        }
+    };
+
+    atualizar();
+    setInterval(atualizar, 1000);
+}
+
 renderizarCartoes();
+configurarRelogio();
 configurarBusca();
 configurarFiltro();
 configurarEventos();
