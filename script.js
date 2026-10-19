@@ -36,7 +36,7 @@ const PROCESSOS = {
             alt: "Caso Ana Lídia",
             tipo: "AÇÃO PENAL",
             cabecalho: "Caso Ana Lídia",
-            numero: "Processo nº A0001948/1985 (00000549/1974)"
+            numero: "Processo nº 00000549/1974 - A0001948/1985"
         }
     },
     'oscar-niemeyer': {
@@ -60,7 +60,7 @@ const PROCESSOS = {
             nome: "Dois Candangos",
             miniatura: "img/logo_dois_candangos.jpg",
             alt: "Dois Candangos",
-            tipo: "ACIDENTE DE TRABALHO – 3/4/1962",
+            tipo: "ACIDENTE DE TRABALHO",
             cabecalho: "Dois Candangos",
             numero: "Processo nº S3066/1962"
         }
